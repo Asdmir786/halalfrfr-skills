@@ -151,6 +151,49 @@ foreach ($folder in $categoryFolders) {
         }
 }
 
+
+function Get-NormalizedTextFingerprint {
+
+    param(
+        [string]$Path
+    )
+
+    $text = [IO.File]::ReadAllText($Path)
+
+    $normalized = $text.Replace(
+        "`r`n",
+        "`n"
+    ).Replace(
+        "`r",
+        "`n"
+    )
+
+    $encoding = [System.Text.UTF8Encoding]::new(
+        $false
+    )
+
+    $bytes = $encoding.GetBytes(
+        $normalized
+    )
+
+    $sha256 = [System.Security.Cryptography.SHA256]::Create()
+
+    try {
+
+        $hashBytes = $sha256.ComputeHash(
+            $bytes
+        )
+    }
+    finally {
+
+        $sha256.Dispose()
+    }
+
+    return [PSCustomObject]@{
+        Bytes  = $bytes.Length
+        SHA256 = [Convert]::ToHexString($hashBytes)
+    }
+}
 $manifestPath = Join-Path `
     $destination `
     "MANIFEST.csv"
@@ -172,14 +215,13 @@ $manifestRows = @(
 
             $relativePath = $relativePath -replace '\\','/'
 
-            $hash = Get-FileHash `
-                -LiteralPath $_.FullName `
-                -Algorithm SHA256
+            $fingerprint = Get-NormalizedTextFingerprint `
+                -Path $_.FullName
 
             [PSCustomObject]@{
                 RelativePath = $relativePath
-                Bytes        = $_.Length
-                SHA256       = $hash.Hash
+                Bytes        = $fingerprint.Bytes
+                SHA256       = $fingerprint.SHA256
             }
         } |
         Sort-Object RelativePath
@@ -193,3 +235,4 @@ $manifestRows |
 
 Write-Host "Resource intelligence synchronized."
 Write-Host "Generated files: $($manifestRows.Count + 1)"
+

@@ -40,6 +40,49 @@ function Resolve-RelativePath {
     return $resolved
 }
 
+
+function Get-NormalizedTextFingerprint {
+
+    param(
+        [string]$Path
+    )
+
+    $text = [IO.File]::ReadAllText($Path)
+
+    $normalized = $text.Replace(
+        "`r`n",
+        "`n"
+    ).Replace(
+        "`r",
+        "`n"
+    )
+
+    $encoding = [System.Text.UTF8Encoding]::new(
+        $false
+    )
+
+    $bytes = $encoding.GetBytes(
+        $normalized
+    )
+
+    $sha256 = [System.Security.Cryptography.SHA256]::Create()
+
+    try {
+
+        $hashBytes = $sha256.ComputeHash(
+            $bytes
+        )
+    }
+    finally {
+
+        $sha256.Dispose()
+    }
+
+    return [PSCustomObject]@{
+        Bytes  = $bytes.Length
+        SHA256 = [Convert]::ToHexString($hashBytes)
+    }
+}
 function Test-SameFile {
 
     param(
@@ -442,20 +485,14 @@ else {
             continue
         }
 
-        $file = Get-Item `
-            -LiteralPath $filePath
+        $fingerprint = Get-NormalizedTextFingerprint `
+            -Path $filePath
 
-        $hash = (
-            Get-FileHash `
-                -LiteralPath $filePath `
-                -Algorithm SHA256
-        ).Hash
-
-        if ([long]$manifestRow.Bytes -ne $file.Length) {
+        if ([long]$manifestRow.Bytes -ne $fingerprint.Bytes) {
             Add-ValidationError "Manifest byte mismatch: $($manifestRow.RelativePath)"
         }
 
-        if ($manifestRow.SHA256 -ne $hash) {
+        if ($manifestRow.SHA256 -ne $fingerprint.SHA256) {
             Add-ValidationError "Manifest hash mismatch: $($manifestRow.RelativePath)"
         }
     }
@@ -613,3 +650,4 @@ if ($script:validationErrors.Count -gt 0) {
 
 Write-Host ""
 Write-Host "PASS: Repository validation passed."
+
