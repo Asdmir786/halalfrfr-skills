@@ -602,6 +602,7 @@ $requiredRepositoryFiles = @(
     "NOTICE.md",
     "CONTRIBUTING.md",
     ".gitattributes",
+    "scripts/setup.ps1",
     "docs/ARCHITECTURE.md",
     "docs/INSTALLATION.md",
     "docs/DISTRIBUTION.md",
@@ -650,4 +651,3 @@ if ($script:validationErrors.Count -gt 0) {
 
 Write-Host ""
 Write-Host "PASS: Repository validation passed."
-

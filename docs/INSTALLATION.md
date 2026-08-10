@@ -1,83 +1,123 @@
 # Installation
 
-HalalFrFr's Frontend Skills can be installed as user-level or project-level Agent Skills.
+HalalFrFr's Frontend Skills includes both an interactive setup wizard and a non-interactive installer.
 
-## Recommended Default
+## Recommended Setup
 
 From the repository root:
 
-    pwsh ./scripts/install.ps1
+    pwsh ./scripts/setup.ps1
 
-The default target is the user-level `.agents/skills` directory and the default mode is `Copy`.
+The wizard asks where the skills should be available.
 
-## Installation Targets
+### Option 1 - Global: Cursor + Codex
 
-### Cross-agent user installation
+Recommended for most users.
+
+Installs into:
+
+`~/.agents/skills`
+
+Use this when you want HalalFrFr available across your projects.
+
+### Option 2 - One Project: Cursor + Codex
+
+Installs into:
+
+`<project>/.agents/skills`
+
+The wizard asks for the project path.
+
+Use this when HalalFrFr should only apply to one repository or workspace.
+
+### Option 3 - Cursor-Specific
+
+Advanced users may install into:
+
+Global:
+
+`~/.cursor/skills`
+
+Project:
+
+`<project>/.cursor/skills`
+
+The standard Global and Project choices are preferred when the same installation should be usable by multiple Agent Skills-compatible environments.
+
+## Non-Interactive Installer
+
+Automation, CI, scripting, and advanced users can call `install.ps1` directly.
+
+### Global
 
     pwsh ./scripts/install.ps1 -Target AgentsUser
 
-### Cross-agent project installation
+### Project
 
     pwsh ./scripts/install.ps1 -Target AgentsProject -ProjectPath "C:\path\to\project"
 
-### Cursor user installation
+### Cursor Global
 
     pwsh ./scripts/install.ps1 -Target CursorUser
 
-### Cursor project installation
+### Cursor Project
 
     pwsh ./scripts/install.ps1 -Target CursorProject -ProjectPath "C:\path\to\project"
 
 ## Copy vs Link
 
-Copy mode:
+The interactive setup uses Copy mode for the safest default behavior.
+
+Direct installation can use:
 
     pwsh ./scripts/install.ps1 -Mode Copy
 
-Link mode:
+or:
 
     pwsh ./scripts/install.ps1 -Mode Link
 
-Copy is the safest default.
+Link mode is useful during development because repository updates become visible through the symbolic links.
 
-Link mode is useful during active development because updates to this repository become visible through the symbolic links.
+If symbolic-link creation is unavailable on the machine, use Copy mode.
 
-On platforms where symbolic-link creation requires additional permission, use Copy mode.
+## Updating HalalFrFr
 
-## Updating an Existing HalalFrFr Installation
+For a Copy-mode installation:
 
-Run the same install command again.
+    git pull
+    pwsh ./scripts/check.ps1
+    pwsh ./scripts/install.ps1 -Target AgentsUser -Mode Copy
 
-The installer records managed skills in:
+The installer maintains:
 
 `.halalfrfr-frontend-skills.json`
 
-Only skills recorded as managed by this package are automatically replaced.
+inside the selected skills root.
 
-If a same-named unmanaged skill already exists, installation stops instead of silently overwriting it.
+Previously managed HalalFrFr skills can therefore be updated safely.
 
-Use `-Force` only when you intentionally want to replace that conflicting skill.
+A conflicting same-named skill that is not managed by HalalFrFr is not silently overwritten unless `-Force` is explicitly supplied.
 
 ## Uninstall
 
-Default user installation:
+Global cross-agent installation:
 
-    pwsh ./scripts/uninstall.ps1
+    pwsh ./scripts/uninstall.ps1 -Target AgentsUser
 
-Other targets use the same target selection:
+Cursor global installation:
 
     pwsh ./scripts/uninstall.ps1 -Target CursorUser
 
-The uninstaller removes only the skills listed in the HalalFrFr installation manifest.
+Project installations use the corresponding project target and project path.
 
-It does not delete unrelated skills.
+The uninstaller removes only skills recorded in the HalalFrFr installation manifest.
 
-## Repository Development
+## Development
 
-After changing resources or skill descriptions:
+After changing canonical resources or skill metadata:
 
     pwsh ./scripts/sync-all.ps1
 
-Then validate:
+Run the full repository checks:
 
     pwsh ./scripts/check.ps1

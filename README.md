@@ -73,20 +73,40 @@ Clone the repository:
     git clone https://github.com/Asdmir786/halalfrfr-frontend-skills.git
     cd halalfrfr-frontend-skills
 
-Install all 18 skills to the user-level cross-agent skill directory:
+### Interactive Setup - Recommended
 
-    pwsh ./scripts/install.ps1
+Run:
 
-The default installer uses Copy mode.
+    pwsh ./scripts/setup.ps1
 
-For active development you may use symbolic links:
+The setup wizard offers:
 
-    pwsh ./scripts/install.ps1 -Mode Link
+1. Global - Cursor + Codex
+2. One Project - Cursor + Codex
+3. Advanced Cursor-specific installation
+4. Cancel
+
+The recommended global installation uses:
+
+`~/.agents/skills`
+
+so the same HalalFrFr installation can be discovered by supported Cursor and Codex environments.
+
+### Direct / Automated Installation
+
+The underlying non-interactive installer remains available:
+
+    pwsh ./scripts/install.ps1 -Target AgentsUser -Mode Copy
+
+Project-level:
+
+    pwsh ./scripts/install.ps1 -Target AgentsProject -ProjectPath "C:\path\to\project"
+
+Cursor-specific targets are also available through `install.ps1`.
 
 See:
 
 `docs/INSTALLATION.md`
-
 ## Example Routing
 
 ### Build a premium landing page

@@ -4,7 +4,11 @@ This repository is the canonical authoring source for HalalFrFr's Frontend Skill
 
 ## Local Agent Skills
 
-The repository can be installed into supported Agent Skills directories through:
+For interactive local installation use:
+
+`./scripts/setup.ps1`
+
+For automation or explicit target selection use:
 
 `./scripts/install.ps1`
 
