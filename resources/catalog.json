@@ -1,0 +1,898 @@
+[
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "shadcn/ui",
+    "URL": "https://ui.shadcn.com",
+    "Kind": "copy-owned component system",
+    "Tier": "core",
+    "Use": "Default high-level component source when appropriate; adapt to project design system."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "Radix UI",
+    "URL": "https://www.radix-ui.com",
+    "Kind": "headless primitives",
+    "Tier": "core",
+    "Use": "Accessible React primitives; preserve when existing project uses Radix."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "Base UI",
+    "URL": "https://base-ui.com",
+    "Kind": "headless primitives",
+    "Tier": "core",
+    "Use": "Unstyled accessible primitives; suitable foundation for custom systems."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "React Aria",
+    "URL": "https://react-spectrum.adobe.com/react-aria",
+    "Kind": "interaction primitives",
+    "Tier": "core",
+    "Use": "High-quality accessible interaction behavior and complex widgets."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "Ariakit",
+    "URL": "https://ariakit.org",
+    "Kind": "headless primitives",
+    "Tier": "strong",
+    "Use": "Accessible React primitives and interaction patterns."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "Ark UI",
+    "URL": "https://ark-ui.com",
+    "Kind": "headless components",
+    "Tier": "strong",
+    "Use": "Headless components and state-driven UI patterns."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "Headless UI",
+    "URL": "https://headlessui.com",
+    "Kind": "headless components",
+    "Tier": "secondary",
+    "Use": "Accessible unstyled components, particularly useful in Tailwind ecosystems."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "Zag.js",
+    "URL": "https://zagjs.com",
+    "Kind": "state machines",
+    "Tier": "secondary",
+    "Use": "State-machine patterns for complex interactive components."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "Floating UI",
+    "URL": "https://floating-ui.com",
+    "Kind": "positioning engine",
+    "Tier": "core",
+    "Use": "Tooltips, popovers, dropdowns, floating elements and collision-aware positioning."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "HeroUI",
+    "URL": "https://www.heroui.com",
+    "Kind": "component system",
+    "Tier": "secondary",
+    "Use": "Full React UI system; reference or project-specific choice."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "Mantine",
+    "URL": "https://mantine.dev",
+    "Kind": "component system",
+    "Tier": "secondary",
+    "Use": "Large React component and hooks ecosystem."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "Chakra UI",
+    "URL": "https://chakra-ui.com",
+    "Kind": "component system",
+    "Tier": "secondary",
+    "Use": "Accessible component system; preserve in existing Chakra projects."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "Material UI",
+    "URL": "https://mui.com",
+    "Kind": "component system",
+    "Tier": "secondary",
+    "Use": "Mature enterprise Material Design React ecosystem."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "Ant Design",
+    "URL": "https://ant.design",
+    "Kind": "component system",
+    "Tier": "secondary",
+    "Use": "Enterprise-heavy React UI system."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "Astryx",
+    "URL": "https://github.com/facebook/astryx",
+    "Kind": "design system",
+    "Tier": "watch",
+    "Use": "Enterprise design-system reference and alternative foundation."
+  },
+  {
+    "Category": "Accessible UI Foundations",
+    "Name": "RetroUI",
+    "URL": "https://retroui.dev",
+    "Kind": "styled components",
+    "Tier": "optional",
+    "Use": "Use when the product deliberately needs a retro visual language."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "21st.dev",
+    "URL": "https://21st.dev",
+    "Kind": "component registry",
+    "Tier": "core",
+    "Use": "Primary discovery layer for high-quality React components and creative UI patterns."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "React Bits",
+    "URL": "https://reactbits.dev",
+    "Kind": "animated components",
+    "Tier": "core",
+    "Use": "Creative React effects, text treatments, backgrounds and marketing interactions."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "Aceternity UI",
+    "URL": "https://ui.aceternity.com",
+    "Kind": "animated components",
+    "Tier": "strong",
+    "Use": "Premium marketing components and visual effects; adapt rather than copy visual identity."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "Magic UI",
+    "URL": "https://magicui.design",
+    "Kind": "animated components",
+    "Tier": "strong",
+    "Use": "Animated shadcn-style components and marketing patterns."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "Animate UI",
+    "URL": "https://animate-ui.com",
+    "Kind": "animated primitives",
+    "Tier": "strong",
+    "Use": "Reusable animated React primitives."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "Vengence UI",
+    "URL": "https://vengenceui.com",
+    "Kind": "creative components",
+    "Tier": "optional",
+    "Use": "Experimental creative component reference."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "Cult UI",
+    "URL": "https://www.cult-ui.com",
+    "Kind": "creative components",
+    "Tier": "strong",
+    "Use": "Experimental and high-end UI component reference."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "Kokonut UI",
+    "URL": "https://kokonutui.com",
+    "Kind": "React components",
+    "Tier": "strong",
+    "Use": "Modern React/Tailwind component patterns."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "SmoothUI",
+    "URL": "https://smoothui.dev",
+    "Kind": "motion components",
+    "Tier": "strong",
+    "Use": "Motion-focused React interface components."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "Unlumen UI",
+    "URL": "https://ui.unlumen.com",
+    "Kind": "creative components",
+    "Tier": "optional",
+    "Use": "Creative visual component reference."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "Motion Primitives",
+    "URL": "https://motion-primitives.com",
+    "Kind": "motion primitives",
+    "Tier": "core",
+    "Use": "Reusable motion-based React primitives."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "UIverse",
+    "URL": "https://uiverse.io",
+    "Kind": "community components",
+    "Tier": "optional",
+    "Use": "Broad CSS/UI inspiration; review implementation quality before reuse."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "Componentry",
+    "URL": "https://componentry.dev",
+    "Kind": "component discovery",
+    "Tier": "strong",
+    "Use": "Component discovery and interface reference."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "Uilora",
+    "URL": "https://uilora.com",
+    "Kind": "UI reference",
+    "Tier": "optional",
+    "Use": "Additional UI component/reference source."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "Forge UI",
+    "URL": "https://forgeui.in",
+    "Kind": "component library",
+    "Tier": "optional",
+    "Use": "Additional component source and reference."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "Animshelf",
+    "URL": "https://animshelf.dev",
+    "Kind": "animation snippets",
+    "Tier": "strong",
+    "Use": "Animation snippets and effect inspiration."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "Bklit UI",
+    "URL": "https://bklit.com",
+    "Kind": "data/UI components",
+    "Tier": "strong",
+    "Use": "Polished data visualization and shadcn-oriented UI components."
+  },
+  {
+    "Category": "Component Libraries",
+    "Name": "AnimmasterLib",
+    "URL": "",
+    "Kind": "animation resource",
+    "Tier": "unresolved",
+    "Use": "Keep on research list until the canonical URL/source is verified."
+  },
+  {
+    "Category": "Data Visualization",
+    "Name": "Tremor",
+    "URL": "https://www.tremor.so",
+    "Kind": "dashboard components",
+    "Tier": "core",
+    "Use": "Dashboard, KPI and analytical UI patterns."
+  },
+  {
+    "Category": "Data Visualization",
+    "Name": "Recharts",
+    "URL": "https://recharts.org",
+    "Kind": "chart library",
+    "Tier": "core",
+    "Use": "General React charting for product dashboards."
+  },
+  {
+    "Category": "Data Visualization",
+    "Name": "shadcn Charts",
+    "URL": "https://ui.shadcn.com/charts",
+    "Kind": "chart components",
+    "Tier": "core",
+    "Use": "Design-system-friendly chart patterns for shadcn projects."
+  },
+  {
+    "Category": "Data Visualization",
+    "Name": "Visx",
+    "URL": "https://airbnb.io/visx",
+    "Kind": "visualization primitives",
+    "Tier": "strong",
+    "Use": "Low-level custom React visualization primitives."
+  },
+  {
+    "Category": "Data Visualization",
+    "Name": "Nivo",
+    "URL": "https://nivo.rocks",
+    "Kind": "chart library",
+    "Tier": "secondary",
+    "Use": "Rich chart collection for specialized visualization needs."
+  },
+  {
+    "Category": "Data Visualization",
+    "Name": "Bklit",
+    "URL": "https://bklit.com",
+    "Kind": "visualization components",
+    "Tier": "strong",
+    "Use": "Polished dashboard and visualization reference."
+  },
+  {
+    "Category": "Icons",
+    "Name": "Lucide",
+    "URL": "https://lucide.dev",
+    "Kind": "icon system",
+    "Tier": "core",
+    "Use": "Preferred clean general-purpose icon family when no project icon system exists."
+  },
+  {
+    "Category": "Icons",
+    "Name": "Tabler Icons",
+    "URL": "https://tabler.io/icons",
+    "Kind": "icon system",
+    "Tier": "strong",
+    "Use": "Large consistent open-source icon family."
+  },
+  {
+    "Category": "Icons",
+    "Name": "Iconsax",
+    "URL": "https://iconsax.io",
+    "Kind": "icon system",
+    "Tier": "secondary",
+    "Use": "Multiple-style modern icon family."
+  },
+  {
+    "Category": "Motion Engines",
+    "Name": "Motion",
+    "URL": "https://motion.dev",
+    "Kind": "React animation",
+    "Tier": "core",
+    "Use": "Default for component transitions, layout animation, gestures and micro-interactions."
+  },
+  {
+    "Category": "Motion Engines",
+    "Name": "GSAP",
+    "URL": "https://gsap.com",
+    "Kind": "animation engine",
+    "Tier": "core",
+    "Use": "Complex choreography, timelines and advanced scroll storytelling."
+  },
+  {
+    "Category": "Motion Engines",
+    "Name": "Anime.js",
+    "URL": "https://animejs.com",
+    "Kind": "animation engine",
+    "Tier": "secondary",
+    "Use": "Lightweight general-purpose animation option."
+  },
+  {
+    "Category": "Motion Engines",
+    "Name": "React Spring",
+    "URL": "https://react-spring.dev",
+    "Kind": "physics animation",
+    "Tier": "secondary",
+    "Use": "Spring/physics-driven React animation."
+  },
+  {
+    "Category": "Motion Engines",
+    "Name": "mo.js",
+    "URL": "https://mojs.github.io",
+    "Kind": "motion graphics",
+    "Tier": "optional",
+    "Use": "Specialized motion graphics effects."
+  },
+  {
+    "Category": "Motion Engines",
+    "Name": "AutoAnimate",
+    "URL": "https://auto-animate.formkit.com",
+    "Kind": "automatic transitions",
+    "Tier": "secondary",
+    "Use": "Simple automatic DOM transition enhancement."
+  },
+  {
+    "Category": "Web 3D",
+    "Name": "Three.js",
+    "URL": "https://threejs.org",
+    "Kind": "WebGL engine",
+    "Tier": "core",
+    "Use": "Primary underlying 3D/WebGL engine."
+  },
+  {
+    "Category": "Web 3D",
+    "Name": "React Three Fiber",
+    "URL": "https://r3f.docs.pmnd.rs",
+    "Kind": "React 3D renderer",
+    "Tier": "core",
+    "Use": "Primary React integration layer for Three.js."
+  },
+  {
+    "Category": "Web 3D",
+    "Name": "Drei",
+    "URL": "https://drei.docs.pmnd.rs",
+    "Kind": "R3F helpers",
+    "Tier": "core",
+    "Use": "Reusable helpers and abstractions for React Three Fiber."
+  },
+  {
+    "Category": "Web 3D",
+    "Name": "OGL",
+    "URL": "https://oframe.github.io/ogl",
+    "Kind": "WebGL library",
+    "Tier": "secondary",
+    "Use": "Lightweight WebGL option when Three.js/R3F is unnecessarily heavy."
+  },
+  {
+    "Category": "Web 3D",
+    "Name": "Theatre.js",
+    "URL": "https://www.theatrejs.com",
+    "Kind": "animation sequencing",
+    "Tier": "strong",
+    "Use": "Visual sequencing and parameter animation for sophisticated scenes."
+  },
+  {
+    "Category": "Web 3D",
+    "Name": "Lenis",
+    "URL": "https://lenis.darkroom.engineering",
+    "Kind": "smooth scrolling",
+    "Tier": "strong",
+    "Use": "Controlled smooth scrolling when it materially improves the experience."
+  },
+  {
+    "Category": "Web 3D",
+    "Name": "Shader Gradient",
+    "URL": "https://www.shadergradient.co",
+    "Kind": "shader visuals",
+    "Tier": "strong",
+    "Use": "Shader-driven backgrounds and gradients."
+  },
+  {
+    "Category": "Web 3D",
+    "Name": "Zdog",
+    "URL": "https://zzz.dog",
+    "Kind": "pseudo 3D",
+    "Tier": "optional",
+    "Use": "Lightweight illustrative pseudo-3D."
+  },
+  {
+    "Category": "Web 3D",
+    "Name": "Leva",
+    "URL": "https://leva.pmnd.rs",
+    "Kind": "developer controls",
+    "Tier": "strong",
+    "Use": "Interactive parameter tuning for creative/WebGL development."
+  },
+  {
+    "Category": "Visual 3D Tools",
+    "Name": "Spline",
+    "URL": "https://spline.design",
+    "Kind": "visual 3D tool",
+    "Tier": "core",
+    "Use": "Rapid interactive 3D scene creation and prototyping."
+  },
+  {
+    "Category": "Visual 3D Tools",
+    "Name": "3D Websites",
+    "URL": "https://3dwebsites.design",
+    "Kind": "3D inspiration",
+    "Tier": "core",
+    "Use": "Reference gallery for high-end 3D web experiences."
+  },
+  {
+    "Category": "Visual 3D Tools",
+    "Name": "Morflax Studio",
+    "URL": "https://studio.morflax.com",
+    "Kind": "3D assets/tooling",
+    "Tier": "strong",
+    "Use": "3D visual asset creation/reference."
+  },
+  {
+    "Category": "Visual 3D Tools",
+    "Name": "Endless Tools",
+    "URL": "https://endlesstools.io",
+    "Kind": "creative tools",
+    "Tier": "strong",
+    "Use": "Creative visual tooling and experimental web resources."
+  },
+  {
+    "Category": "Visual 3D Tools",
+    "Name": "SVGator",
+    "URL": "https://www.svgator.com",
+    "Kind": "SVG animation",
+    "Tier": "secondary",
+    "Use": "Visual SVG animation authoring."
+  },
+  {
+    "Category": "Visual 3D Tools",
+    "Name": "Jitter",
+    "URL": "https://jitter.video",
+    "Kind": "motion design",
+    "Tier": "strong",
+    "Use": "Motion design and visual animation production."
+  },
+  {
+    "Category": "Product UX Research",
+    "Name": "Mobbin",
+    "URL": "https://mobbin.com",
+    "Kind": "product reference",
+    "Tier": "core",
+    "Use": "Real product screens and flows for evidence-driven product UI decisions."
+  },
+  {
+    "Category": "Product UX Research",
+    "Name": "Refero",
+    "URL": "https://refero.design",
+    "Kind": "product reference",
+    "Tier": "core",
+    "Use": "Real interface examples and visual product research."
+  },
+  {
+    "Category": "Product UX Research",
+    "Name": "Refero Styles",
+    "URL": "https://refero.design/styles",
+    "Kind": "style reference",
+    "Tier": "strong",
+    "Use": "Interface examples organized by visual style."
+  },
+  {
+    "Category": "Product UX Research",
+    "Name": "Page Flows",
+    "URL": "https://pageflows.com",
+    "Kind": "UX flows",
+    "Tier": "core",
+    "Use": "Recorded real-world user flows and interaction sequences."
+  },
+  {
+    "Category": "Product UX Research",
+    "Name": "SaaSFrame",
+    "URL": "https://www.saasframe.io",
+    "Kind": "SaaS reference",
+    "Tier": "core",
+    "Use": "SaaS application and marketing UI reference."
+  },
+  {
+    "Category": "Product UX Research",
+    "Name": "Name That UI",
+    "URL": "https://namethatui.com",
+    "Kind": "pattern taxonomy",
+    "Tier": "strong",
+    "Use": "Identify established names and patterns for interface elements."
+  },
+  {
+    "Category": "Product UX Research",
+    "Name": "Screenlane",
+    "URL": "https://screenlane.com",
+    "Kind": "product reference",
+    "Tier": "strong",
+    "Use": "Curated product UI reference."
+  },
+  {
+    "Category": "Product UX Research",
+    "Name": "Nicelydone",
+    "URL": "https://nicelydone.club",
+    "Kind": "SaaS reference",
+    "Tier": "strong",
+    "Use": "SaaS/product interface reference."
+  },
+  {
+    "Category": "Product UX Research",
+    "Name": "UX Archive",
+    "URL": "https://uxarchive.com",
+    "Kind": "UX flows",
+    "Tier": "secondary",
+    "Use": "Archived mobile/product UX patterns."
+  },
+  {
+    "Category": "Product UX Research",
+    "Name": "Pttrns",
+    "URL": "https://pttrns.com",
+    "Kind": "mobile patterns",
+    "Tier": "secondary",
+    "Use": "Mobile UI pattern reference."
+  },
+  {
+    "Category": "Product UX Research",
+    "Name": "Start UX Design",
+    "URL": "https://startuxdesign.com",
+    "Kind": "UX learning",
+    "Tier": "secondary",
+    "Use": "UX learning and reference material."
+  },
+  {
+    "Category": "CRO Research",
+    "Name": "ABTest.design",
+    "URL": "https://abtest.design",
+    "Kind": "experiment reference",
+    "Tier": "core",
+    "Use": "Real A/B tests and conversion experiments."
+  },
+  {
+    "Category": "CRO Research",
+    "Name": "Baymard",
+    "URL": "https://baymard.com",
+    "Kind": "UX research",
+    "Tier": "core",
+    "Use": "Evidence-based ecommerce UX research."
+  },
+  {
+    "Category": "CRO Research",
+    "Name": "Growth.Design",
+    "URL": "https://growth.design",
+    "Kind": "behavioral UX",
+    "Tier": "core",
+    "Use": "Psychology and UX case studies."
+  },
+  {
+    "Category": "CRO Research",
+    "Name": "GoodUI",
+    "URL": "https://goodui.org",
+    "Kind": "conversion patterns",
+    "Tier": "core",
+    "Use": "Tested UI and conversion hypotheses."
+  },
+  {
+    "Category": "CRO Research",
+    "Name": "Social Proof Examples",
+    "URL": "https://socialproofexamples.com",
+    "Kind": "conversion reference",
+    "Tier": "secondary",
+    "Use": "Implementation patterns for social proof."
+  },
+  {
+    "Category": "CRO Research",
+    "Name": "Really Good UX",
+    "URL": "https://reallygoodux.io",
+    "Kind": "UX patterns",
+    "Tier": "strong",
+    "Use": "Well-designed UX pattern examples."
+  },
+  {
+    "Category": "CRO Research",
+    "Name": "Lapa Ninja",
+    "URL": "https://www.lapa.ninja",
+    "Kind": "landing inspiration",
+    "Tier": "strong",
+    "Use": "Landing-page and conversion-oriented reference."
+  },
+  {
+    "Category": "Marketing Inspiration",
+    "Name": "Awwwards",
+    "URL": "https://www.awwwards.com",
+    "Kind": "creative web inspiration",
+    "Tier": "core",
+    "Use": "Art direction, composition, motion and experimental web inspiration."
+  },
+  {
+    "Category": "Marketing Inspiration",
+    "Name": "SiteInspire",
+    "URL": "https://www.siteinspire.com",
+    "Kind": "web inspiration",
+    "Tier": "core",
+    "Use": "Curated high-quality web design reference."
+  },
+  {
+    "Category": "Marketing Inspiration",
+    "Name": "Minimal Gallery",
+    "URL": "https://minimal.gallery",
+    "Kind": "minimal web inspiration",
+    "Tier": "strong",
+    "Use": "Minimal visual-language reference."
+  },
+  {
+    "Category": "Marketing Inspiration",
+    "Name": "Land-book",
+    "URL": "https://land-book.com",
+    "Kind": "landing inspiration",
+    "Tier": "core",
+    "Use": "Landing page gallery and composition reference."
+  },
+  {
+    "Category": "Marketing Inspiration",
+    "Name": "One Page Love",
+    "URL": "https://onepagelove.com",
+    "Kind": "one-page inspiration",
+    "Tier": "strong",
+    "Use": "One-page site and landing-page patterns."
+  },
+  {
+    "Category": "Marketing Inspiration",
+    "Name": "Godly",
+    "URL": "https://godly.website",
+    "Kind": "creative web inspiration",
+    "Tier": "core",
+    "Use": "High-end contemporary web design inspiration."
+  },
+  {
+    "Category": "Marketing Inspiration",
+    "Name": "Cosmos",
+    "URL": "https://www.cosmos.so",
+    "Kind": "visual inspiration",
+    "Tier": "strong",
+    "Use": "Broad visual inspiration and bookmarking."
+  },
+  {
+    "Category": "Marketing Inspiration",
+    "Name": "Pafolios",
+    "URL": "https://pafolios.com",
+    "Kind": "portfolio inspiration",
+    "Tier": "secondary",
+    "Use": "Portfolio design reference."
+  },
+  {
+    "Category": "Marketing Inspiration",
+    "Name": "Internet Gems",
+    "URL": "https://ilovecreatives.com/internet-gems",
+    "Kind": "creative resources",
+    "Tier": "strong",
+    "Use": "Curated creative internet discoveries and references."
+  },
+  {
+    "Category": "Design Resources",
+    "Name": "Logo System",
+    "URL": "https://logosystem.co",
+    "Kind": "brand reference",
+    "Tier": "strong",
+    "Use": "Logo systems and identity reference."
+  },
+  {
+    "Category": "Design Resources",
+    "Name": "Realtime Colors",
+    "URL": "https://www.realtimecolors.com",
+    "Kind": "color tool",
+    "Tier": "core",
+    "Use": "Evaluate palettes in live website contexts."
+  },
+  {
+    "Category": "Design Resources",
+    "Name": "Fontshare",
+    "URL": "https://www.fontshare.com",
+    "Kind": "font library",
+    "Tier": "core",
+    "Use": "Quality font discovery for modern interfaces."
+  },
+  {
+    "Category": "Design Resources",
+    "Name": "Coolors",
+    "URL": "https://coolors.co",
+    "Kind": "color tool",
+    "Tier": "strong",
+    "Use": "Palette exploration and generation."
+  },
+  {
+    "Category": "Design Resources",
+    "Name": "Type Scale",
+    "URL": "https://typescale.com",
+    "Kind": "typography tool",
+    "Tier": "strong",
+    "Use": "Typography scale exploration."
+  },
+  {
+    "Category": "Design Resources",
+    "Name": "Fontpair",
+    "URL": "https://www.fontpair.co",
+    "Kind": "font reference",
+    "Tier": "strong",
+    "Use": "Font pairing inspiration."
+  },
+  {
+    "Category": "Design Resources",
+    "Name": "Craftwork",
+    "URL": "https://craftwork.design",
+    "Kind": "design assets",
+    "Tier": "strong",
+    "Use": "Premium design assets and references."
+  },
+  {
+    "Category": "Design Resources",
+    "Name": "Creatoom",
+    "URL": "https://creatoom.com",
+    "Kind": "design assets",
+    "Tier": "secondary",
+    "Use": "Creative design assets and references."
+  },
+  {
+    "Category": "AI Builder Benchmarks",
+    "Name": "GetLayers",
+    "URL": "https://www.getlayers.ai",
+    "Kind": "AI design tool",
+    "Tier": "watch",
+    "Use": "Benchmark AI-assisted interface generation and workflows."
+  },
+  {
+    "Category": "AI Builder Benchmarks",
+    "Name": "HorizonX",
+    "URL": "https://horizonx.so",
+    "Kind": "AI frontend tool",
+    "Tier": "watch",
+    "Use": "Benchmark AI-oriented frontend/design workflows."
+  },
+  {
+    "Category": "AI Builder Benchmarks",
+    "Name": "10x",
+    "URL": "https://10x.app",
+    "Kind": "AI builder",
+    "Tier": "watch",
+    "Use": "Benchmark AI app/UI creation."
+  },
+  {
+    "Category": "AI Builder Benchmarks",
+    "Name": "Manus",
+    "URL": "https://manus.im",
+    "Kind": "AI agent/builder",
+    "Tier": "core-benchmark",
+    "Use": "Benchmark end-to-end visual direction and autonomous web production."
+  },
+  {
+    "Category": "AI Builder Benchmarks",
+    "Name": "Framer",
+    "URL": "https://www.framer.com",
+    "Kind": "visual web builder",
+    "Tier": "strong-benchmark",
+    "Use": "Benchmark visual website quality, interactions and responsive authoring."
+  },
+  {
+    "Category": "AI Builder Benchmarks",
+    "Name": "Webflow",
+    "URL": "https://webflow.com",
+    "Kind": "visual web builder",
+    "Tier": "strong-benchmark",
+    "Use": "Benchmark production visual web workflows and layout capabilities."
+  },
+  {
+    "Category": "QA",
+    "Name": "Playwright",
+    "URL": "https://playwright.dev",
+    "Kind": "browser testing",
+    "Tier": "core",
+    "Use": "Browser automation, responsive checks, interaction testing and screenshots."
+  },
+  {
+    "Category": "QA",
+    "Name": "Lighthouse",
+    "URL": "https://developer.chrome.com/docs/lighthouse",
+    "Kind": "quality audit",
+    "Tier": "core",
+    "Use": "Performance, accessibility, SEO and quality audits."
+  },
+  {
+    "Category": "QA",
+    "Name": "axe-core",
+    "URL": "https://github.com/dequelabs/axe-core",
+    "Kind": "accessibility testing",
+    "Tier": "core",
+    "Use": "Automated accessibility checks."
+  },
+  {
+    "Category": "QA",
+    "Name": "Storybook",
+    "URL": "https://storybook.js.org",
+    "Kind": "component workbench",
+    "Tier": "core",
+    "Use": "Isolated component development, documentation, testing and design-system QA."
+  },
+  {
+    "Category": "QA",
+    "Name": "Testing Library",
+    "URL": "https://testing-library.com",
+    "Kind": "component testing",
+    "Tier": "strong",
+    "Use": "User-centric UI behavior testing."
+  },
+  {
+    "Category": "QA",
+    "Name": "Vitest",
+    "URL": "https://vitest.dev",
+    "Kind": "test runner",
+    "Tier": "strong",
+    "Use": "Fast JavaScript/TypeScript testing."
+  },
+  {
+    "Category": "Personal Collections",
+    "Name": "DesignLab",
+    "URL": "https://www.notion.so/DesignLab-395e68099f798077a296faeac9ddaddb",
+    "Kind": "personal resource collection",
+    "Tier": "personal",
+    "Use": "Private/personal collection of UI and design references."
+  }
+]
