@@ -1,5 +1,4 @@
 param(
-
     [ValidateSet(
         "AgentsUser",
         "AgentsProject",
@@ -8,86 +7,62 @@ param(
     )]
     [string]$Target = "AgentsUser",
 
-    [string]$ProjectPath = (Get-Location).Path
+    [string]$ProjectPath = ""
 )
 
 $ErrorActionPreference = "Stop"
 
-function Get-TargetRoot {
+$targetRoot = ""
 
-    param(
-        [string]$TargetName,
-        [string]$RequestedProjectPath
-    )
+switch ($Target) {
 
-    switch ($TargetName) {
-
-        "AgentsUser" {
-
-            return Join-Path `
-                (Join-Path $HOME ".agents") `
-                "skills"
-        }
-
-        "CursorUser" {
-
-            return Join-Path `
-                (Join-Path $HOME ".cursor") `
-                "skills"
-        }
-
-        "AgentsProject" {
-
-            $projectRoot = [IO.Path]::GetFullPath(
-                $RequestedProjectPath
-            )
-
-            return Join-Path `
-                (Join-Path $projectRoot ".agents") `
-                "skills"
-        }
-
-        "CursorProject" {
-
-            $projectRoot = [IO.Path]::GetFullPath(
-                $RequestedProjectPath
-            )
-
-            return Join-Path `
-                (Join-Path $projectRoot ".cursor") `
-                "skills"
-        }
+    "AgentsUser" {
+        $targetRoot = Join-Path $HOME ".agents/skills"
     }
 
-    throw "Unsupported uninstall target."
-}
+    "CursorUser" {
+        $targetRoot = Join-Path $HOME ".cursor/skills"
+    }
 
-$targetRoot = Get-TargetRoot `
-    -TargetName $Target `
-    -RequestedProjectPath $ProjectPath
+    "AgentsProject" {
+
+        if ([string]::IsNullOrWhiteSpace($ProjectPath)) {
+            throw "ProjectPath is required for AgentsProject."
+        }
+
+        $resolvedProject = (
+            Resolve-Path -LiteralPath $ProjectPath
+        ).Path
+
+        $targetRoot = Join-Path $resolvedProject ".agents/skills"
+    }
+
+    "CursorProject" {
+
+        if ([string]::IsNullOrWhiteSpace($ProjectPath)) {
+            throw "ProjectPath is required for CursorProject."
+        }
+
+        $resolvedProject = (
+            Resolve-Path -LiteralPath $ProjectPath
+        ).Path
+
+        $targetRoot = Join-Path $resolvedProject ".cursor/skills"
+    }
+}
 
 $manifestPath = Join-Path `
     $targetRoot `
-    ".halalfrfr-frontend-skills.json"
+    ".halalfrfr-skills.json"
 
 if (-not (Test-Path $manifestPath)) {
-
-    throw "No HalalFrFr installation manifest exists at $manifestPath. Nothing was removed."
+    throw "HalalFrFr unified installation manifest was not found."
 }
 
 $manifest = Get-Content `
-    -Path $manifestPath `
+    $manifestPath `
     -Raw |
     ConvertFrom-Json
-
-if (
-    $manifest.package -ne
-    "halalfrfr-frontend-skills"
-) {
-    throw "Installation manifest does not belong to HalalFrFr Frontend Skills."
-}
-
-$removed = 0
 
 foreach ($skillName in @($manifest.skills)) {
 
@@ -102,7 +77,7 @@ foreach ($skillName in @($manifest.skills)) {
             -Recurse `
             -Force
 
-        $removed++
+        Write-Host "REMOVED: $skillName"
     }
 }
 
@@ -111,6 +86,5 @@ Remove-Item `
     -Force
 
 Write-Host ""
-Write-Host "HalalFrFr Frontend Skills uninstalled."
-Write-Host "Removed skills: $removed"
-Write-Host "Target root preserved: $targetRoot"
+Write-Host "HalalFrFr managed skills removed."
+Write-Host "Unrelated skills were preserved."

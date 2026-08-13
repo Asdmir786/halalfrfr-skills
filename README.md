@@ -1,51 +1,88 @@
-# HalalFrFr's Frontend Skills
+# HalalFrFr Skills
 
-A modular frontend design and engineering skill system for AI coding agents.
+**Systematic foundation. Expressive surface. Coherent full stack.**
 
-> **Systematic foundation. Expressive surface.**
+HalalFrFr Skills is a modular Agent Skills system for building and improving production web applications with AI coding agents.
 
-HalalFrFr's Frontend Skills is a routed collection of 18 focused Agent Skills for building, redesigning, refining, and validating modern frontend experiences without turning every task into one giant prompt.
+The unified package contains **28 skills**:
 
-The system covers:
+- 18 frontend design and engineering skills
+- 10 full-stack product, architecture, backend, data, contract, and QA skills
 
-- creative direction
-- design systems
-- frontend architecture
-- production UI engineering
-- responsive composition
-- visual fidelity
-- interface polish
-- accessibility
-- performance
-- advanced motion
-- WebGL / 3D
-- shadcn
-- resource intelligence
-- browser visual QA
+The system supports both new applications and existing codebases.
 
-## Why
+For substantial work, the intended operating model is:
 
-High-end frontend work requires more than code generation.
+**understand → audit → document → propose → explain → approve → implement → verify**
 
-The visual layer, engineering layer, media layer, motion layer, responsive behavior, and QA layer each require different judgment.
+Small, low-risk changes can use a faster inspect → implement → verify path.
 
-This repository separates those responsibilities into focused skills and uses `frontend-master` to choose the smallest relevant combination.
+## What it is designed for
 
-## 18 Skills
+- premium landing pages
+- SaaS and dashboard products
+- existing-product redesigns
+- ground-up frontend rebuilds
+- full-stack features
+- PRD-driven applications
+- backend architecture
+- API and frontend-backend consistency
+- auth and authorization
+- data architecture
+- responsive UI
+- motion and 3D when justified
+- accessibility and performance
+- cross-layer QA
+- guided engineering explanations when requested
 
-### Core
+## Framework strategy
+
+The architecture is framework-aware rather than framework-hardcoded.
+
+First-class guidance exists for:
+
+- Next.js
+- Laravel
+
+The skills detect the actual project and prefer its native conventions.
+
+## Skills
+
+### Full-stack core
+
+- `fullstack-master`
+- `product-specification`
+- `solution-architecture`
+
+### Contracts and product boundaries
+
+- `fullstack-contracts`
+- `auth-and-authorization`
+- `validation-and-errors`
+
+### Backend and data
+
+- `backend-architecture`
+- `data-architecture`
+- `framework-integration`
+
+### Full-stack QA
+
+- `fullstack-qa`
+
+### Frontend core
 
 - `frontend-master`
 - `frontend-resource-intelligence`
 
-### Creative
+### Creative direction
 
 - `creative-direction`
 - `design-system-web`
 - `asset-direction`
 - `interface-polish`
 
-### Engineering
+### Frontend engineering
 
 - `frontend-architecture`
 - `frontend-ui-engineering`
@@ -54,7 +91,7 @@ This repository separates those responsibilities into focused skills and uses `f
 - `frontend-performance`
 - `frontend-accessibility`
 
-### Specialists
+### Frontend specialists
 
 - `visual-reference-to-code`
 - `extract-design-system`
@@ -62,210 +99,71 @@ This repository separates those responsibilities into focused skills and uses `f
 - `advanced-motion`
 - `web-3d`
 
-### QA
+### Visual QA
 
 - `visual-qa`
 
-## Quick Install
+## Installation
 
-Clone the repository:
+Clone:
 
-    git clone https://github.com/Asdmir786/halalfrfr-frontend-skills.git
-    cd halalfrfr-frontend-skills
+    git clone https://github.com/Asdmir786/halalfrfr-skills.git
+    cd halalfrfr-skills
 
-### Interactive Setup - Recommended
-
-Run:
+Recommended global installation:
 
     pwsh ./scripts/setup.ps1
 
-The setup wizard offers:
-
-1. Global - Cursor + Codex
-2. One Project - Cursor + Codex
-3. Advanced Cursor-specific installation
-4. Cancel
-
-The recommended global installation uses:
+The default installs all 28 skills into:
 
 `~/.agents/skills`
 
-so the same HalalFrFr installation can be discovered by supported Cursor and Codex environments.
-
-### Direct / Automated Installation
-
-The underlying non-interactive installer remains available:
+For explicit installation targets:
 
     pwsh ./scripts/install.ps1 -Target AgentsUser -Mode Copy
 
-Project-level:
+Project-only:
 
     pwsh ./scripts/install.ps1 -Target AgentsProject -ProjectPath "C:\path\to\project"
 
-Cursor-specific targets are also available through `install.ps1`.
+Cursor-specific targets remain available through `install.ps1`.
 
-See:
+## Existing skills
 
-`docs/INSTALLATION.md`
-## Example Routing
+The installer manages only HalalFrFr skill names recorded by its manifest.
 
-### Build a premium landing page
+Unrelated skills are preserved.
 
-Likely flow:
+Unmanaged same-name collisions are blocked unless `-Force` is explicitly supplied.
 
-`creative-direction`
-→ `frontend-ui-engineering`
-→ `responsive-composition`
+## Resource intelligence
 
-Add `design-system-web`, `asset-direction`, `advanced-motion`, or `web-3d` only when the concept actually needs them.
+The frontend resource-intelligence layer contains the curated implementation, UX, motion, component, 3D, design, and QA resource catalog used by the frontend specialists.
 
-### Match a screenshot
-
-Likely flow:
-
-`visual-reference-to-code`
-→ `frontend-ui-engineering`
-→ `responsive-composition`
-→ `visual-qa`
-
-### Redesign an existing dashboard
-
-Start with:
-
-`redesign-existing-projects`
-
-Then route only to specialists identified by the audit.
-
-### Fix a slow page
-
-Start with:
-
-`frontend-performance`
-
-Then route to the owner of the bottleneck when necessary.
-
-## Resource Intelligence
-
-The repository includes a curated external-resource knowledge layer covering more than one hundred resources across:
-
-- accessible UI primitives
-- component libraries
-- data visualization
-- icons
-- motion
-- WebGL and 3D
-- UX research
-- conversion research
-- marketing inspiration
-- typography and color
-- AI builder benchmarks
-- QA
-
-Resources are references and tools.
-
-They are not automatic dependencies.
-
-The project always prefers:
-
-existing project system
-→ existing primitive
-→ compatible extension
-→ external resource
-→ custom implementation
-
-## High-End Without Automatic Complexity
-
-The repository does not assume that premium means:
-
-- GSAP
-- Three.js
-- glassmorphism
-- bento grids
-- gradients
-- huge typography
-
-Those techniques are valid when they support the concept.
-
-The design should still be intentional without them.
-
-## Existing Projects First
-
-For existing applications the system prioritizes:
-
-- preserving functionality
-- preserving architecture
-- preserving integrations
-- preserving accessible behavior
-- minimizing unrelated changes
-
-A redesign does not automatically mean a rewrite.
-
-## Portable Skills
-
-Each canonical skill is a self-contained folder containing:
-
-- `SKILL.md`
-- optional `references/`
-
-`frontend-resource-intelligence` additionally carries a generated self-contained copy of its resource catalog.
-
-## Maintenance
-
-Synchronize generated references:
-
-    pwsh ./scripts/sync-all.ps1
-
-Run all repository checks:
-
-    pwsh ./scripts/check.ps1
-
-## Validation
-
-Repository validation checks:
-
-- exactly 18 canonical skills
-- frontmatter names
-- description presence and size
-- combined trigger-description budget
-- referenced Markdown files
-- generated resource synchronization
-- resource manifest integrity
-- generated skill registry
-- routing eval structure
-- required repository files
-
-The description-overlap audit also catches trigger descriptions that become dangerously similar.
-
-## Routing Evals
-
-Representative routing prompts live in:
-
-`tests/routing-cases.csv`
-
-These are designed for manual review and future model-based routing evaluations.
+Resources inform decisions; they are not blindly injected into every task.
 
 ## Documentation
 
-- `docs/ARCHITECTURE.md`
-- `docs/INSTALLATION.md`
-- `docs/DISTRIBUTION.md`
-- `docs/RESOURCE_POLICY.md`
-- `docs/RESOURCE_INTELLIGENCE.md`
-
-## External Resources
-
-The resource catalog contains third-party names and links for reference.
-
-No ownership of third-party code, assets, brands, documentation, fonts, or trademarks is claimed.
-
 See:
 
-`NOTICE.md`
+- `docs/ARCHITECTURE.md`
+- `docs/INSTALLATION.md`
+- `docs/RESOURCE_POLICY.md`
+- `docs/fullstack/FULLSTACK_BLUEPRINT.md`
+- `docs/fullstack/APPROVAL_PROTOCOL.md`
+- `docs/fullstack/DOCUMENTATION_STANDARD.md`
+- `docs/fullstack/FRAMEWORK_STRATEGY.md`
+
+## Development
+
+Synchronize generated files:
+
+    pwsh ./scripts/sync-all.ps1
+
+Run the complete repository checks:
+
+    pwsh ./scripts/check.ps1
 
 ## License
 
-Original repository content is available under the MIT License.
-
-See:
-
-`LICENSE`
+MIT. See `LICENSE` and `NOTICE.md`.

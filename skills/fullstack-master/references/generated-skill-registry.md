@@ -1,4 +1,4 @@
-# Frontend Skill Registry
+# Unified HalalFrFr Skill Registry
 
 Generated from config/skill-set.json and canonical SKILL.md frontmatter.
 
@@ -22,3 +22,13 @@ Generated from config/skill-set.json and canonical SKILL.md frontmatter.
 | `advanced-motion` | frontend | specialist | Advanced motion and GSAP choreography for timelines, scroll-linked storytelling, pinning, staged reveals, and complex sequencing. Use when motion is a core experience, not routine micro-interactions. |
 | `web-3d` | frontend | specialist | Real-time web 3D and WebGL using project-appropriate Three.js, React Three Fiber, shaders, models, cameras, lighting, interaction, and performance strategies. Use only when spatial rendering adds real value. |
 | `visual-qa` | frontend | qa | Browser-based visual QA for rendered pages, screenshots, responsive states, target comparison, overflow, crops, visual regressions, and iteration after meaningful UI changes. |
+| `fullstack-master` | fullstack | core | Route substantial full-stack work across product, frontend, backend, data, contracts, approval, teaching, and QA. |
+| `product-specification` | fullstack | core | Audit PRDs, product ideas, and existing behavior into concise implementation-ready requirements before architecture or coding. |
+| `solution-architecture` | fullstack | core | Design or audit framework-aware full-stack boundaries, preservation strategy, risks, and implementation phases before major changes. |
+| `fullstack-contracts` | fullstack | contracts | Keep frontend and backend aligned through explicit API, action, and event contracts, auth expectations, errors, and state transitions. |
+| `auth-and-authorization` | fullstack | contracts | Design and audit authentication, authorization, ownership, tenancy, sessions, roles, and permission enforcement across product layers. |
+| `validation-and-errors` | fullstack | contracts | Align frontend UX validation with authoritative backend rules and stable error semantics across full-stack flows. |
+| `backend-architecture` | fullstack | backend-data | Build and refactor maintainable backend boundaries for requests, business logic, persistence, jobs, integrations, and operations. |
+| `data-architecture` | fullstack | backend-data | Design and audit data ownership, relationships, constraints, migrations, transactions, indexes, lifecycle, and ORM usage. |
+| `framework-integration` | fullstack | backend-data | Apply native framework conventions after detection, with first-class Next.js and Laravel guidance without hardcoding either stack. |
+| `fullstack-qa` | fullstack | qa | Verify critical behavior across frontend, API, backend, auth, data, integrations, migrations, and end-to-end user flows. |

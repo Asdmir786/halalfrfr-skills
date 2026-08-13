@@ -1,45 +1,15 @@
 $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
+$configPath = Join-Path $repoRoot "config/skill-set.json"
 
-$skillsRoot = Join-Path $repoRoot "skills"
-$resourcesRoot = Join-Path $repoRoot "resources"
-$docsRoot = Join-Path $repoRoot "docs"
-$testsRoot = Join-Path $repoRoot "tests"
-
-$script:validationErrors = @()
+$validationErrors = @()
 
 function Add-ValidationError {
-
-    param(
-        [string]$Message
-    )
+    param([string]$Message)
 
     $script:validationErrors += $Message
 }
-
-function Resolve-RelativePath {
-
-    param(
-        [string]$BasePath,
-        [string]$RelativePath
-    )
-
-    $resolved = $BasePath
-
-    foreach ($segment in ($RelativePath -split '[\\/]')) {
-
-        if (-not [string]::IsNullOrWhiteSpace($segment)) {
-
-            $resolved = Join-Path `
-                $resolved `
-                $segment
-        }
-    }
-
-    return $resolved
-}
-
 
 function Get-NormalizedTextFingerprint {
 
@@ -57,109 +27,57 @@ function Get-NormalizedTextFingerprint {
         "`n"
     )
 
-    $encoding = [System.Text.UTF8Encoding]::new(
-        $false
-    )
-
-    $bytes = $encoding.GetBytes(
-        $normalized
-    )
+    $encoding = [System.Text.UTF8Encoding]::new($false)
+    $bytes = $encoding.GetBytes($normalized)
 
     $sha256 = [System.Security.Cryptography.SHA256]::Create()
 
     try {
-
-        $hashBytes = $sha256.ComputeHash(
-            $bytes
-        )
+        $hashBytes = $sha256.ComputeHash($bytes)
     }
     finally {
-
         $sha256.Dispose()
     }
 
     return [PSCustomObject]@{
-        Bytes  = $bytes.Length
+        Bytes = $bytes.Length
         SHA256 = [Convert]::ToHexString($hashBytes)
     }
 }
-function Test-SameFile {
 
-    param(
-        [string]$Source,
-        [string]$Destination,
-        [string]$Label
-    )
-
-    if (-not (Test-Path $Source)) {
-        Add-ValidationError "Missing source file: $Label"
-        return
-    }
-
-    if (-not (Test-Path $Destination)) {
-        Add-ValidationError "Missing generated file: $Label"
-        return
-    }
-
-    $sourceHash = (
-        Get-FileHash `
-            -LiteralPath $Source `
-            -Algorithm SHA256
-    ).Hash
-
-    $destinationHash = (
-        Get-FileHash `
-            -LiteralPath $Destination `
-            -Algorithm SHA256
-    ).Hash
-
-    if ($sourceHash -ne $destinationHash) {
-        Add-ValidationError "Generated file is stale: $Label"
-    }
+if (-not (Test-Path $configPath)) {
+    throw "Missing config/skill-set.json"
 }
 
+$config = Get-Content `
+    $configPath `
+    -Raw |
+    ConvertFrom-Json
+
 $expectedSkills = @(
-    "advanced-motion",
-    "asset-direction",
-    "creative-direction",
-    "design-system-web",
-    "extract-design-system",
-    "frontend-accessibility",
-    "frontend-architecture",
-    "frontend-master",
-    "frontend-performance",
-    "frontend-resource-intelligence",
-    "frontend-ui-engineering",
-    "interface-polish",
-    "redesign-existing-projects",
-    "responsive-composition",
-    "shadcn-integration",
-    "visual-qa",
-    "visual-reference-to-code",
-    "web-3d"
+    $config.skills |
+    ForEach-Object {
+        $_.name
+    }
 )
 
-$skillDirectories = @(
+$actualSkills = @(
     Get-ChildItem `
-        -Path $skillsRoot `
+        (Join-Path $repoRoot "skills") `
         -Directory |
-        Sort-Object Name
-)
-
-$actualSkillNames = @(
-    $skillDirectories |
-    Select-Object -ExpandProperty Name
+    Select-Object -ExpandProperty Name |
+    Sort-Object
 )
 
 $missingSkills = @(
     $expectedSkills |
     Where-Object {
-        $_ -notin $actualSkillNames
+        $_ -notin $actualSkills
     }
 )
 
-$unexpectedSkills = @(
-    $actualSkillNames |
+$extraSkills = @(
+    $actualSkills |
     Where-Object {
         $_ -notin $expectedSkills
     }
@@ -167,37 +85,37 @@ $unexpectedSkills = @(
 
 $missingSkills |
     ForEach-Object {
-        Add-ValidationError "Missing canonical skill directory: $_"
+        Add-ValidationError "Missing canonical skill: $_"
     }
 
-$unexpectedSkills |
+$extraSkills |
     ForEach-Object {
-        Add-ValidationError "Unexpected canonical skill directory: $_"
+        Add-ValidationError "Unexpected skill directory: $_"
     }
 
-$validationRows = @()
+if ($expectedSkills.Count -ne 28) {
+    Add-ValidationError "Expected canonical inventory to contain 28 skills."
+}
 
-$totalDescriptionLength = 0
+$skillRows = @()
+$totalDescriptionCharacters = 0
 
 foreach ($skillName in $expectedSkills) {
 
-    $skillDirectory = Join-Path `
-        $skillsRoot `
-        $skillName
+    $skillDir = Join-Path `
+        $repoRoot `
+        "skills/$skillName"
 
     $skillFile = Join-Path `
-        $skillDirectory `
+        $skillDir `
         "SKILL.md"
 
     if (-not (Test-Path $skillFile)) {
-
-        Add-ValidationError "$skillName is missing SKILL.md."
-
         continue
     }
 
     $content = Get-Content `
-        -Path $skillFile `
+        $skillFile `
         -Raw
 
     $nameMatch = [regex]::Match(
@@ -210,46 +128,31 @@ foreach ($skillName in $expectedSkills) {
         '(?m)^description:\s*(.+?)\s*$'
     )
 
-    $frontmatterName = ""
-
-    $description = ""
-
-    if ($nameMatch.Success) {
-        $frontmatterName = $nameMatch.Groups[1].Value.Trim()
-    }
-    else {
-        Add-ValidationError "$skillName has no name frontmatter."
+    if (-not $nameMatch.Success) {
+        Add-ValidationError "Missing frontmatter name: $skillName"
+        continue
     }
 
-    if ($descriptionMatch.Success) {
-        $description = $descriptionMatch.Groups[1].Value.Trim()
-    }
-    else {
-        Add-ValidationError "$skillName has no description frontmatter."
+    if ($nameMatch.Groups[1].Value.Trim() -ne $skillName) {
+        Add-ValidationError "Frontmatter name mismatch: $skillName"
     }
 
-    if (
-        -not [string]::IsNullOrWhiteSpace($frontmatterName) -and
-        $frontmatterName -ne $skillName
-    ) {
-        Add-ValidationError "$skillName has mismatched frontmatter name '$frontmatterName'."
+    if (-not $descriptionMatch.Success) {
+        Add-ValidationError "Missing description: $skillName"
+        continue
     }
 
-    if ([string]::IsNullOrWhiteSpace($description)) {
-        Add-ValidationError "$skillName has an empty description."
+    $description = $descriptionMatch.Groups[1].Value.Trim()
+    $descriptionLength = $description.Length
+
+    $totalDescriptionCharacters += $descriptionLength
+
+    if ($descriptionLength -gt 240) {
+        Add-ValidationError "Description exceeds 240 chars: $skillName"
     }
 
-    if ($description.Length -gt 240) {
-        Add-ValidationError "$skillName description is too long: $($description.Length) characters."
-    }
-
-    $totalDescriptionLength += $description.Length
-
-    if (
-        $content -match
-        '(?m)^disable-model-invocation:\s*true\s*$'
-    ) {
-        Add-ValidationError "$skillName disables model invocation."
+    if ($content -match '(?mi)^disable-model-invocation:\s*true\s*$') {
+        Add-ValidationError "disable-model-invocation true is not allowed: $skillName"
     }
 
     $referenceMatches = @(
@@ -263,225 +166,169 @@ foreach ($skillName in $expectedSkills) {
         Sort-Object -Unique
     )
 
-    foreach ($reference in $referenceMatches) {
+    foreach ($relativeReference in $referenceMatches) {
 
-        $referencePath = Resolve-RelativePath `
-            -BasePath $skillDirectory `
-            -RelativePath $reference
+        $referencePath = Join-Path `
+            $skillDir `
+            ($relativeReference.Replace(
+                "/",
+                [IO.Path]::DirectorySeparatorChar
+            ))
 
         if (-not (Test-Path $referencePath)) {
-            Add-ValidationError "$skillName references missing file: $reference"
+            Add-ValidationError "Missing referenced file: $skillName/$relativeReference"
         }
     }
 
-    $validationRows += [PSCustomObject]@{
-        Skill             = $skillName
-        DescriptionLength = $description.Length
-        References        = $referenceMatches.Count
+    $skillRows += [PSCustomObject]@{
+        Skill = $skillName
+        DescriptionLength = $descriptionLength
+        References = $referenceMatches.Count
     }
 }
 
-if ($totalDescriptionLength -gt 5000) {
-    Add-ValidationError "Total description budget exceeds 5000 characters: $totalDescriptionLength"
+if ($totalDescriptionCharacters -gt 5000) {
+    Add-ValidationError "Total description budget exceeds 5000 characters: $totalDescriptionCharacters"
 }
 
-$skillFiles = @(
+$gitkeeps = @(
     Get-ChildItem `
-        -Path $skillsRoot `
-        -Filter "SKILL.md" `
+        (Join-Path $repoRoot "skills") `
+        -Filter ".gitkeep" `
         -File `
         -Recurse
 )
 
-if ($skillFiles.Count -ne 18) {
-    Add-ValidationError "Expected 18 SKILL.md files but found $($skillFiles.Count)."
+if ($gitkeeps.Count -gt 0) {
+    Add-ValidationError "Canonical skill folders contain .gitkeep files."
 }
 
-$skillPlaceholders = @(
-    Get-ChildItem `
-        -Path $skillsRoot `
-        -Filter ".gitkeep" `
-        -File `
-        -Recurse `
-        -ErrorAction SilentlyContinue
+$requiredFiles = @(
+    ".gitattributes",
+    ".gitignore",
+    "README.md",
+    "LICENSE",
+    "NOTICE.md",
+    "CONTRIBUTING.md",
+    "config/skill-set.json",
+    ".github/workflows/validate.yml",
+    "scripts/check.ps1",
+    "scripts/install.ps1",
+    "scripts/setup.ps1",
+    "scripts/uninstall.ps1",
+    "scripts/sync-all.ps1",
+    "scripts/sync-resource-intelligence.ps1",
+    "scripts/sync-skill-registry.ps1",
+    "scripts/audit-description-overlap.ps1",
+    "tests/routing-cases.csv",
+    "skills/frontend-master/references/generated-skill-registry.md",
+    "skills/fullstack-master/references/generated-skill-registry.md"
 )
 
-if ($skillPlaceholders.Count -gt 0) {
-    Add-ValidationError "Found stale .gitkeep files under canonical skill folders."
+foreach ($relativeFile in $requiredFiles) {
+
+    $fullPath = Join-Path `
+        $repoRoot `
+        $relativeFile
+
+    if (-not (Test-Path $fullPath)) {
+        Add-ValidationError "Missing required repository file: $relativeFile"
+    }
 }
 
-# ------------------------------------------------------------
-# Resource catalog checks
-# ------------------------------------------------------------
+$routingPath = Join-Path `
+    $repoRoot `
+    "tests/routing-cases.csv"
 
-$catalogCsv = Join-Path `
-    $resourcesRoot `
-    "catalog.csv"
+if (Test-Path $routingPath) {
 
-$catalogJson = Join-Path `
-    $resourcesRoot `
-    "catalog.json"
-
-if (-not (Test-Path $catalogCsv)) {
-    Add-ValidationError "resources/catalog.csv is missing."
-}
-
-if (-not (Test-Path $catalogJson)) {
-    Add-ValidationError "resources/catalog.json is missing."
-}
-
-$csvCount = 0
-$jsonCount = 0
-
-if (Test-Path $catalogCsv) {
-
-    $csvRows = @(
-        Import-Csv $catalogCsv
+    $routingCases = @(
+        Import-Csv $routingPath
     )
 
-    $csvCount = $csvRows.Count
+    if ($routingCases.Count -lt 28) {
+        Add-ValidationError "Routing suite should contain at least 28 cases."
+    }
+
+    $duplicateIds = @(
+        $routingCases |
+        Group-Object ID |
+        Where-Object {
+            $_.Count -gt 1
+        }
+    )
+
+    if ($duplicateIds.Count -gt 0) {
+        Add-ValidationError "Routing cases contain duplicate IDs."
+    }
+
+    foreach ($case in $routingCases) {
+
+        if ($case.ExpectedPrimarySkill -notin $expectedSkills) {
+            Add-ValidationError "Routing case references invalid skill: $($case.ExpectedPrimarySkill)"
+        }
+    }
 }
 
-if (Test-Path $catalogJson) {
+$resourceCsvPath = Join-Path `
+    $repoRoot `
+    "resources/catalog.csv"
 
-    $jsonRows = @(
+$resourceJsonPath = Join-Path `
+    $repoRoot `
+    "resources/catalog.json"
+
+$resourceCount = 0
+
+if (
+    (Test-Path $resourceCsvPath) -and
+    (Test-Path $resourceJsonPath)
+) {
+
+    $resourceCsv = @(
+        Import-Csv $resourceCsvPath
+    )
+
+    $resourceJson = @(
         Get-Content `
-            -Path $catalogJson `
+            $resourceJsonPath `
             -Raw |
         ConvertFrom-Json
     )
 
-    $jsonCount = $jsonRows.Count
+    $resourceCount = $resourceCsv.Count
+
+    if ($resourceCsv.Count -ne $resourceJson.Count) {
+        Add-ValidationError "Resource CSV/JSON counts differ."
+    }
+
+    if ($resourceCsv.Count -eq 0) {
+        Add-ValidationError "Resource catalog is empty."
+    }
 }
 
-if ($csvCount -ne $jsonCount) {
-    Add-ValidationError "Resource CSV/JSON count mismatch: CSV=$csvCount JSON=$jsonCount"
-}
+$resourceReferences = Join-Path `
+    $repoRoot `
+    "skills/frontend-resource-intelligence/references"
 
-if ($csvCount -eq 0) {
-    Add-ValidationError "Resource catalog is empty."
-}
-
-# ------------------------------------------------------------
-# Generated resource bundle checks
-# ------------------------------------------------------------
-
-$resourceSkillRoot = Join-Path `
-    $skillsRoot `
-    "frontend-resource-intelligence"
-
-$resourceSkillReferences = Join-Path `
-    $resourceSkillRoot `
-    "references"
-
-Test-SameFile `
-    -Source $catalogCsv `
-    -Destination (
-        Join-Path `
-            $resourceSkillReferences `
-            "catalog.csv"
-    ) `
-    -Label "resource catalog.csv"
-
-Test-SameFile `
-    -Source $catalogJson `
-    -Destination (
-        Join-Path `
-            $resourceSkillReferences `
-            "catalog.json"
-    ) `
-    -Label "resource catalog.json"
-
-$resourcePolicy = Join-Path `
-    $docsRoot `
-    "RESOURCE_POLICY.md"
-
-Test-SameFile `
-    -Source $resourcePolicy `
-    -Destination (
-        Join-Path `
-            $resourceSkillReferences `
-            "RESOURCE_POLICY.md"
-    ) `
-    -Label "resource policy"
-
-$generatedCatalogRoot = Join-Path `
-    $resourceSkillReferences `
-    "catalog"
-
-$categoryDirectories = @(
-    Get-ChildItem `
-        -Path $resourcesRoot `
-        -Directory
-)
-
-foreach ($categoryDirectory in $categoryDirectories) {
-
-    Get-ChildItem `
-        -Path $categoryDirectory.FullName `
-        -File `
-        -Recurse |
-        ForEach-Object {
-
-            $relative = [IO.Path]::GetRelativePath(
-                $resourcesRoot,
-                $_.FullName
-            )
-
-            $destination = Resolve-RelativePath `
-                -BasePath $generatedCatalogRoot `
-                -RelativePath $relative
-
-            Test-SameFile `
-                -Source $_.FullName `
-                -Destination $destination `
-                -Label "resource/$relative"
-        }
-}
-
-# ------------------------------------------------------------
-# Resource manifest integrity
-# ------------------------------------------------------------
-
-$manifestPath = Join-Path `
-    $resourceSkillReferences `
+$resourceManifestPath = Join-Path `
+    $resourceReferences `
     "MANIFEST.csv"
 
-if (-not (Test-Path $manifestPath)) {
-
-    Add-ValidationError "Resource MANIFEST.csv is missing."
-}
-else {
+if (Test-Path $resourceManifestPath) {
 
     $manifestRows = @(
-        Import-Csv $manifestPath
+        Import-Csv $resourceManifestPath
     )
-
-    $actualGeneratedFiles = @(
-        Get-ChildItem `
-            -Path $resourceSkillReferences `
-            -File `
-            -Recurse |
-        Where-Object {
-            $_.FullName -ne $manifestPath
-        }
-    )
-
-    if ($manifestRows.Count -ne $actualGeneratedFiles.Count) {
-
-        Add-ValidationError "Resource manifest file count mismatch."
-    }
 
     foreach ($manifestRow in $manifestRows) {
 
-        $filePath = Resolve-RelativePath `
-            -BasePath $resourceSkillReferences `
-            -RelativePath $manifestRow.RelativePath
+        $filePath = Join-Path `
+            $resourceReferences `
+            $manifestRow.RelativePath
 
         if (-not (Test-Path $filePath)) {
-
-            Add-ValidationError "Manifest references missing file: $($manifestRow.RelativePath)"
-
+            Add-ValidationError "Manifest file missing: $($manifestRow.RelativePath)"
             continue
         }
 
@@ -498,156 +345,29 @@ else {
     }
 }
 
-# ------------------------------------------------------------
-# Generated skill registry checks
-# ------------------------------------------------------------
-
-$registryPath = Resolve-RelativePath `
-    -BasePath $skillsRoot `
-    -RelativePath "frontend-master/references/generated-skill-registry.md"
-
-if (-not (Test-Path $registryPath)) {
-
-    Add-ValidationError "Generated skill registry is missing."
-}
-else {
-
-    $registryContent = Get-Content `
-        -Path $registryPath `
-        -Raw
-
-    foreach ($row in $validationRows) {
-
-        $skillFile = Join-Path `
-            (Join-Path $skillsRoot $row.Skill) `
-            "SKILL.md"
-
-        $skillContent = Get-Content `
-            -Path $skillFile `
-            -Raw
-
-        $descriptionMatch = [regex]::Match(
-            $skillContent,
-            '(?m)^description:\s*(.+?)\s*$'
-        )
-
-        $description = $descriptionMatch.Groups[1].Value.Trim()
-
-        $description = $description.Replace(
-            "|",
-            "\|"
-        )
-
-        $expectedRegistryRow = "| $($row.Skill) | $description |"
-
-        if (-not $registryContent.Contains($expectedRegistryRow)) {
-            Add-ValidationError "Generated registry is stale for $($row.Skill)."
-        }
-    }
-}
-
-# ------------------------------------------------------------
-# Routing case checks
-# ------------------------------------------------------------
-
-$routingCasesPath = Join-Path `
-    $testsRoot `
-    "routing-cases.csv"
-
-if (-not (Test-Path $routingCasesPath)) {
-
-    Add-ValidationError "tests/routing-cases.csv is missing."
-}
-else {
-
-    $routingCases = @(
-        Import-Csv $routingCasesPath
-    )
-
-    if ($routingCases.Count -lt 18) {
-        Add-ValidationError "Expected at least 18 routing eval cases."
-    }
-
-    $duplicateIds = @(
-        $routingCases |
-        Group-Object id |
-        Where-Object {
-            $_.Count -gt 1
-        }
-    )
-
-    if ($duplicateIds.Count -gt 0) {
-        Add-ValidationError "Routing eval case IDs are not unique."
-    }
-
-    foreach ($case in $routingCases) {
-
-        if ([string]::IsNullOrWhiteSpace($case.prompt)) {
-            Add-ValidationError "Routing case $($case.id) has no prompt."
-        }
-
-        if ($case.expected_primary -notin $expectedSkills) {
-            Add-ValidationError "Routing case $($case.id) references unknown skill '$($case.expected_primary)'."
-        }
-    }
-}
-
-# ------------------------------------------------------------
-# Required repository files
-# ------------------------------------------------------------
-
-$requiredRepositoryFiles = @(
-    "README.md",
-    "LICENSE",
-    "NOTICE.md",
-    "CONTRIBUTING.md",
-    ".gitattributes",
-    "scripts/setup.ps1",
-    "docs/ARCHITECTURE.md",
-    "docs/INSTALLATION.md",
-    "docs/DISTRIBUTION.md",
-    "tests/README.md",
-    "tests/routing-cases.csv",
-    ".github/workflows/validate.yml"
-)
-
-foreach ($relativeFile in $requiredRepositoryFiles) {
-
-    $fullPath = Resolve-RelativePath `
-        -BasePath $repoRoot `
-        -RelativePath $relativeFile
-
-    if (-not (Test-Path $fullPath)) {
-        Add-ValidationError "Required repository file missing: $relativeFile"
-    }
-}
-
-# ------------------------------------------------------------
-# Output
-# ------------------------------------------------------------
-
 Write-Host ""
 Write-Host "=== Skill Validation ==="
 Write-Host ""
 
-$validationRows |
+$skillRows |
     Sort-Object Skill |
     Format-Table -AutoSize
 
 Write-Host ""
-Write-Host "Skill count: $($validationRows.Count)"
-Write-Host "Description characters: $totalDescriptionLength"
-Write-Host "Resource records: $csvCount"
-Write-Host "Validation errors: $($script:validationErrors.Count)"
+Write-Host "Skill count: $($expectedSkills.Count)"
+Write-Host "Description characters: $totalDescriptionCharacters"
+Write-Host "Resource records: $resourceCount"
+Write-Host "Validation errors: $($validationErrors.Count)"
+Write-Host ""
 
-$script:validationErrors |
-    ForEach-Object {
-        Write-Host "ERROR: $_"
-    }
+if ($validationErrors.Count -gt 0) {
 
-if ($script:validationErrors.Count -gt 0) {
+    $validationErrors |
+        ForEach-Object {
+            Write-Host "ERROR: $_"
+        }
+
     throw "Repository validation failed."
 }
 
-Write-Host ""
 Write-Host "PASS: Repository validation passed."

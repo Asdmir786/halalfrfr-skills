@@ -1,5 +1,4 @@
 param(
-
     [ValidateSet(
         "AgentsUser",
         "AgentsProject",
@@ -14,7 +13,7 @@ param(
     )]
     [string]$Mode = "Copy",
 
-    [string]$ProjectPath = (Get-Location).Path,
+    [string]$ProjectPath = "",
 
     [switch]$Force
 )
@@ -22,63 +21,63 @@ param(
 $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
+$configPath = Join-Path $repoRoot "config/skill-set.json"
 
-$skillsRoot = Join-Path `
-    $repoRoot `
-    "skills"
-
-function Get-TargetRoot {
-
-    param(
-        [string]$TargetName,
-        [string]$RequestedProjectPath
-    )
-
-    switch ($TargetName) {
-
-        "AgentsUser" {
-
-            return Join-Path `
-                (Join-Path $HOME ".agents") `
-                "skills"
-        }
-
-        "CursorUser" {
-
-            return Join-Path `
-                (Join-Path $HOME ".cursor") `
-                "skills"
-        }
-
-        "AgentsProject" {
-
-            $projectRoot = [IO.Path]::GetFullPath(
-                $RequestedProjectPath
-            )
-
-            return Join-Path `
-                (Join-Path $projectRoot ".agents") `
-                "skills"
-        }
-
-        "CursorProject" {
-
-            $projectRoot = [IO.Path]::GetFullPath(
-                $RequestedProjectPath
-            )
-
-            return Join-Path `
-                (Join-Path $projectRoot ".cursor") `
-                "skills"
-        }
-    }
-
-    throw "Unsupported installation target."
+if (-not (Test-Path $configPath)) {
+    throw "Missing config/skill-set.json"
 }
 
-$targetRoot = Get-TargetRoot `
-    -TargetName $Target `
-    -RequestedProjectPath $ProjectPath
+$config = Get-Content $configPath -Raw | ConvertFrom-Json
+
+$skillNames = @(
+    $config.skills |
+    ForEach-Object {
+        $_.name
+    }
+)
+
+if ($skillNames.Count -ne $config.canonicalSkillCount) {
+    throw "Canonical skill inventory is inconsistent."
+}
+
+$targetRoot = ""
+
+switch ($Target) {
+
+    "AgentsUser" {
+        $targetRoot = Join-Path $HOME ".agents/skills"
+    }
+
+    "CursorUser" {
+        $targetRoot = Join-Path $HOME ".cursor/skills"
+    }
+
+    "AgentsProject" {
+
+        if ([string]::IsNullOrWhiteSpace($ProjectPath)) {
+            throw "ProjectPath is required for AgentsProject."
+        }
+
+        $resolvedProject = (
+            Resolve-Path -LiteralPath $ProjectPath
+        ).Path
+
+        $targetRoot = Join-Path $resolvedProject ".agents/skills"
+    }
+
+    "CursorProject" {
+
+        if ([string]::IsNullOrWhiteSpace($ProjectPath)) {
+            throw "ProjectPath is required for CursorProject."
+        }
+
+        $resolvedProject = (
+            Resolve-Path -LiteralPath $ProjectPath
+        ).Path
+
+        $targetRoot = Join-Path $resolvedProject ".cursor/skills"
+    }
+}
 
 New-Item `
     -ItemType Directory `
@@ -88,70 +87,94 @@ New-Item `
 
 $manifestPath = Join-Path `
     $targetRoot `
+    ".halalfrfr-skills.json"
+
+$legacyManifestPath = Join-Path `
+    $targetRoot `
     ".halalfrfr-frontend-skills.json"
 
-$managedSkills = @()
+$managedNames = @()
 
 if (Test-Path $manifestPath) {
 
     $existingManifest = Get-Content `
-        -Path $manifestPath `
+        $manifestPath `
         -Raw |
         ConvertFrom-Json
 
+    $managedNames += @(
+        $existingManifest.skills
+    )
+}
+
+if (Test-Path $legacyManifestPath) {
+
+    $legacyManifest = Get-Content `
+        $legacyManifestPath `
+        -Raw |
+        ConvertFrom-Json
+
+    $managedNames += @(
+        $legacyManifest.skills
+    )
+}
+
+$managedNames = @(
+    $managedNames |
+    Sort-Object -Unique
+)
+
+$collisions = @()
+
+foreach ($skillName in $skillNames) {
+
+    $sourceSkill = Join-Path `
+        $repoRoot `
+        "skills/$skillName"
+
+    $destinationSkill = Join-Path `
+        $targetRoot `
+        $skillName
+
+    if (-not (Test-Path "$sourceSkill/SKILL.md")) {
+        throw "Invalid source skill: $skillName"
+    }
+
     if (
-        $existingManifest.package -eq
-        "halalfrfr-frontend-skills"
+        (Test-Path $destinationSkill) -and
+        ($skillName -notin $managedNames) -and
+        (-not $Force)
     ) {
-        $managedSkills = @(
-            $existingManifest.skills
-        )
+        $collisions += $skillName
     }
 }
 
-$skillNames = @(
-    Get-ChildItem `
-        -Path $skillsRoot `
-        -Directory |
-    Where-Object {
-        Test-Path (
-            Join-Path `
-                $_.FullName `
-                "SKILL.md"
-        )
-    } |
-    Sort-Object Name |
-    Select-Object -ExpandProperty Name
-)
+if ($collisions.Count -gt 0) {
 
-if ($skillNames.Count -ne 18) {
-    throw "Expected 18 canonical skills before installation."
+    Write-Host ""
+    Write-Host "Unmanaged same-name skills were found:"
+
+    $collisions |
+    ForEach-Object {
+        Write-Host " - $_"
+    }
+
+    throw "Nothing was overwritten. Back up/remove the conflicts or rerun with -Force."
 }
 
 foreach ($skillName in $skillNames) {
 
-    $source = Join-Path `
-        $skillsRoot `
-        $skillName
+    $sourceSkill = Join-Path `
+        $repoRoot `
+        "skills/$skillName"
 
-    $destination = Join-Path `
+    $destinationSkill = Join-Path `
         $targetRoot `
         $skillName
 
-    if (Test-Path $destination) {
-
-        $isManaged = (
-            $skillName -in
-            $managedSkills
-        )
-
-        if (-not $isManaged -and -not $Force) {
-
-            throw "Refusing to overwrite unmanaged skill '$skillName'. Re-run with -Force only if you intentionally want to replace it."
-        }
-
+    if (Test-Path $destinationSkill) {
         Remove-Item `
-            -LiteralPath $destination `
+            -LiteralPath $destinationSkill `
             -Recurse `
             -Force
     }
@@ -159,8 +182,8 @@ foreach ($skillName in $skillNames) {
     if ($Mode -eq "Copy") {
 
         Copy-Item `
-            -LiteralPath $source `
-            -Destination $destination `
+            -LiteralPath $sourceSkill `
+            -Destination $targetRoot `
             -Recurse `
             -Force
     }
@@ -168,40 +191,44 @@ foreach ($skillName in $skillNames) {
     if ($Mode -eq "Link") {
 
         try {
-
             New-Item `
                 -ItemType SymbolicLink `
-                -Path $destination `
-                -Target $source |
+                -Path $destinationSkill `
+                -Target $sourceSkill |
                 Out-Null
         }
         catch {
-
-            throw "Could not create symbolic link for '$skillName'. Use -Mode Copy if symbolic-link permissions are unavailable. $($_.Exception.Message)"
+            throw "Could not create symbolic link for $skillName. Use -Mode Copy if symbolic links are unavailable."
         }
     }
 }
 
-$manifest = [ordered]@{
-    schema      = 1
-    package     = "halalfrfr-frontend-skills"
-    source      = [IO.Path]::GetFullPath($repoRoot)
-    target      = $Target
-    mode        = $Mode
+$manifest = [PSCustomObject]@{
+    package = "halalfrfr-skills"
+    target = $Target
+    mode = $Mode
+    canonicalSkillCount = $skillNames.Count
+    skills = $skillNames
     installedAt = (Get-Date).ToString("o")
-    skills      = $skillNames
+    source = $repoRoot
 }
 
 $manifest |
     ConvertTo-Json -Depth 5 |
     Set-Content `
-        -Path $manifestPath `
+        -LiteralPath $manifestPath `
         -Encoding UTF8
 
+if (Test-Path $legacyManifestPath) {
+    Remove-Item `
+        -LiteralPath $legacyManifestPath `
+        -Force
+}
+
 Write-Host ""
-Write-Host "HalalFrFr Frontend Skills installed."
+Write-Host "HalalFrFr Skills installed."
 Write-Host "Target: $targetRoot"
 Write-Host "Mode: $Mode"
 Write-Host "Skills: $($skillNames.Count)"
 Write-Host ""
-Write-Host "If your agent does not immediately show the updated skills, restart or reopen the agent session."
+Write-Host "Restart or reopen the agent session if skill discovery does not refresh immediately."

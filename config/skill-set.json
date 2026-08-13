@@ -1,0 +1,149 @@
+{
+  "skills": [
+    {
+      "category": "core",
+      "name": "frontend-master",
+      "layer": "frontend"
+    },
+    {
+      "category": "core",
+      "name": "frontend-resource-intelligence",
+      "layer": "frontend"
+    },
+    {
+      "category": "creative",
+      "name": "creative-direction",
+      "layer": "frontend"
+    },
+    {
+      "category": "creative",
+      "name": "design-system-web",
+      "layer": "frontend"
+    },
+    {
+      "category": "creative",
+      "name": "asset-direction",
+      "layer": "frontend"
+    },
+    {
+      "category": "creative",
+      "name": "interface-polish",
+      "layer": "frontend"
+    },
+    {
+      "category": "engineering",
+      "name": "frontend-architecture",
+      "layer": "frontend"
+    },
+    {
+      "category": "engineering",
+      "name": "frontend-ui-engineering",
+      "layer": "frontend"
+    },
+    {
+      "category": "engineering",
+      "name": "responsive-composition",
+      "layer": "frontend"
+    },
+    {
+      "category": "engineering",
+      "name": "shadcn-integration",
+      "layer": "frontend"
+    },
+    {
+      "category": "engineering",
+      "name": "frontend-performance",
+      "layer": "frontend"
+    },
+    {
+      "category": "engineering",
+      "name": "frontend-accessibility",
+      "layer": "frontend"
+    },
+    {
+      "category": "specialist",
+      "name": "visual-reference-to-code",
+      "layer": "frontend"
+    },
+    {
+      "category": "specialist",
+      "name": "extract-design-system",
+      "layer": "frontend"
+    },
+    {
+      "category": "specialist",
+      "name": "redesign-existing-projects",
+      "layer": "frontend"
+    },
+    {
+      "category": "specialist",
+      "name": "advanced-motion",
+      "layer": "frontend"
+    },
+    {
+      "category": "specialist",
+      "name": "web-3d",
+      "layer": "frontend"
+    },
+    {
+      "category": "qa",
+      "name": "visual-qa",
+      "layer": "frontend"
+    },
+    {
+      "category": "core",
+      "name": "fullstack-master",
+      "layer": "fullstack"
+    },
+    {
+      "category": "core",
+      "name": "product-specification",
+      "layer": "fullstack"
+    },
+    {
+      "category": "core",
+      "name": "solution-architecture",
+      "layer": "fullstack"
+    },
+    {
+      "category": "contracts",
+      "name": "fullstack-contracts",
+      "layer": "fullstack"
+    },
+    {
+      "category": "contracts",
+      "name": "auth-and-authorization",
+      "layer": "fullstack"
+    },
+    {
+      "category": "contracts",
+      "name": "validation-and-errors",
+      "layer": "fullstack"
+    },
+    {
+      "category": "backend-data",
+      "name": "backend-architecture",
+      "layer": "fullstack"
+    },
+    {
+      "category": "backend-data",
+      "name": "data-architecture",
+      "layer": "fullstack"
+    },
+    {
+      "category": "backend-data",
+      "name": "framework-integration",
+      "layer": "fullstack"
+    },
+    {
+      "category": "qa",
+      "name": "fullstack-qa",
+      "layer": "fullstack"
+    }
+  ],
+  "frontendSkillCount": 18,
+  "version": 1,
+  "package": "halalfrfr-skills",
+  "canonicalSkillCount": 28,
+  "fullstackSkillCount": 10
+}

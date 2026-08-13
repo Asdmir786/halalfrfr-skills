@@ -1,123 +1,57 @@
 # Installation
 
-HalalFrFr's Frontend Skills includes both an interactive setup wizard and a non-interactive installer.
+HalalFrFr Skills contains the complete 28-skill frontend + full-stack system.
 
-## Recommended Setup
+## Recommended global setup
 
 From the repository root:
 
     pwsh ./scripts/setup.ps1
 
-The wizard asks where the skills should be available.
-
-### Option 1 - Global: Cursor + Codex
-
-Recommended for most users.
-
-Installs into:
+This installs into:
 
 `~/.agents/skills`
 
-Use this when you want HalalFrFr available across your projects.
-
-### Option 2 - One Project: Cursor + Codex
-
-Installs into:
-
-`<project>/.agents/skills`
-
-The wizard asks for the project path.
-
-Use this when HalalFrFr should only apply to one repository or workspace.
-
-### Option 3 - Cursor-Specific
-
-Advanced users may install into:
+## Direct installer
 
 Global:
 
-`~/.cursor/skills`
+    pwsh ./scripts/install.ps1 -Target AgentsUser -Mode Copy
 
 Project:
 
-`<project>/.cursor/skills`
-
-The standard Global and Project choices are preferred when the same installation should be usable by multiple Agent Skills-compatible environments.
-
-## Non-Interactive Installer
-
-Automation, CI, scripting, and advanced users can call `install.ps1` directly.
-
-### Global
-
-    pwsh ./scripts/install.ps1 -Target AgentsUser
-
-### Project
-
     pwsh ./scripts/install.ps1 -Target AgentsProject -ProjectPath "C:\path\to\project"
 
-### Cursor Global
+Cursor global:
 
-    pwsh ./scripts/install.ps1 -Target CursorUser
+    pwsh ./scripts/install.ps1 -Target CursorUser -Mode Copy
 
-### Cursor Project
+Cursor project:
 
     pwsh ./scripts/install.ps1 -Target CursorProject -ProjectPath "C:\path\to\project"
 
-## Copy vs Link
+## Existing installations
 
-The interactive setup uses Copy mode for the safest default behavior.
+The unified installer uses:
 
-Direct installation can use:
+`.halalfrfr-skills.json`
 
-    pwsh ./scripts/install.ps1 -Mode Copy
+Legacy `.halalfrfr-frontend-skills.json` installations are recognized during migration and removed after a successful unified installation.
 
-or:
+Unrelated skill directories are not removed.
 
-    pwsh ./scripts/install.ps1 -Mode Link
+If an unmanaged skill has the same name as a HalalFrFr skill, installation stops rather than silently overwriting it.
 
-Link mode is useful during development because repository updates become visible through the symbolic links.
+Use `-Force` only after intentionally reviewing or backing up those conflicts.
 
-If symbolic-link creation is unavailable on the machine, use Copy mode.
+## Updates
 
-## Updating HalalFrFr
-
-For a Copy-mode installation:
-
-    git pull
+    git pull --ff-only
     pwsh ./scripts/check.ps1
     pwsh ./scripts/install.ps1 -Target AgentsUser -Mode Copy
 
-The installer maintains:
-
-`.halalfrfr-frontend-skills.json`
-
-inside the selected skills root.
-
-Previously managed HalalFrFr skills can therefore be updated safely.
-
-A conflicting same-named skill that is not managed by HalalFrFr is not silently overwritten unless `-Force` is explicitly supplied.
-
 ## Uninstall
-
-Global cross-agent installation:
 
     pwsh ./scripts/uninstall.ps1 -Target AgentsUser
 
-Cursor global installation:
-
-    pwsh ./scripts/uninstall.ps1 -Target CursorUser
-
-Project installations use the corresponding project target and project path.
-
-The uninstaller removes only skills recorded in the HalalFrFr installation manifest.
-
-## Development
-
-After changing canonical resources or skill metadata:
-
-    pwsh ./scripts/sync-all.ps1
-
-Run the full repository checks:
-
-    pwsh ./scripts/check.ps1
+Only skills recorded in the unified HalalFrFr installation manifest are removed.

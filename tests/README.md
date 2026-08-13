@@ -1,14 +1,22 @@
-# Routing Evals
+# Routing Evaluation Cases
 
-`routing-cases.csv` contains representative prompts and their expected primary skill.
+This directory contains representative trigger/routing cases for the unified HalalFrFr skill system.
 
-These cases are not a deterministic model-routing test.
+The suite covers:
 
-They are a compact evaluation set for:
+- frontend design and engineering
+- frontend architecture and redesign
+- resource intelligence
+- responsive, motion, 3D, accessibility, and QA
+- PRD/product specification
+- full-stack architecture
+- frontend-backend contracts
+- backend and data architecture
+- auth and authorization
+- validation/error consistency
+- framework integration
+- full-stack QA
 
-- manual review
-- future model evals
-- trigger-description tuning
-- regression review
+Each case declares the expected primary skill.
 
-Repository validation confirms that every expected skill exists and every test case is structurally valid.
+The routing suite is a regression aid, not proof that every model invocation will route identically.
