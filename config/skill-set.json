@@ -139,11 +139,91 @@
       "category": "qa",
       "name": "fullstack-qa",
       "layer": "fullstack"
+    },
+    {
+      "category": "core",
+      "name": "halalfrfr-master",
+      "layer": "fullstack"
+    },
+    {
+      "category": "core",
+      "name": "fullstack-architecture",
+      "layer": "fullstack"
+    },
+    {
+      "category": "core",
+      "name": "project-intake-and-docs",
+      "layer": "fullstack"
+    },
+    {
+      "category": "contracts",
+      "name": "api-contracts",
+      "layer": "fullstack"
+    },
+    {
+      "category": "contracts",
+      "name": "auth-authorization-tenancy",
+      "layer": "fullstack"
+    },
+    {
+      "category": "backend-data",
+      "name": "backend-laravel",
+      "layer": "fullstack"
+    },
+    {
+      "category": "backend-data",
+      "name": "backend-nestjs",
+      "layer": "fullstack"
+    },
+    {
+      "category": "backend-data",
+      "name": "postgres-data-modeling",
+      "layer": "fullstack"
+    },
+    {
+      "category": "backend-data",
+      "name": "dependency-freshness",
+      "layer": "fullstack"
+    },
+    {
+      "category": "backend-data",
+      "name": "observability-operations",
+      "layer": "fullstack"
+    },
+    {
+      "category": "engineering",
+      "name": "refactor-existing-codebase",
+      "layer": "fullstack"
+    },
+    {
+      "category": "qa",
+      "name": "application-security",
+      "layer": "fullstack"
+    },
+    {
+      "category": "qa",
+      "name": "testing-release-quality",
+      "layer": "fullstack"
+    },
+    {
+      "category": "specialist",
+      "name": "saas-dashboard-ux",
+      "layer": "frontend"
+    },
+    {
+      "category": "specialist",
+      "name": "product-copy-quality",
+      "layer": "frontend"
+    },
+    {
+      "category": "qa",
+      "name": "ai-slop-guard",
+      "layer": "frontend"
     }
   ],
-  "frontendSkillCount": 18,
+  "frontendSkillCount": 21,
   "version": 1,
   "package": "halalfrfr-skills",
-  "canonicalSkillCount": 28,
-  "fullstackSkillCount": 10
+  "canonicalSkillCount": 44,
+  "fullstackSkillCount": 23
 }

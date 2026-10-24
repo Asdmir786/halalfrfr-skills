@@ -4,10 +4,10 @@
 
 HalalFrFr Skills is a modular Agent Skills system for building and improving production web applications with AI coding agents.
 
-The unified package contains **28 skills**:
+The unified package contains **44 skills**:
 
-- 18 frontend design and engineering skills
-- 10 full-stack product, architecture, backend, data, contract, and QA skills
+- 21 frontend design and engineering skills
+- 23 full-stack product, architecture, backend, data, contract, and QA skills
 
 The system supports both new applications and existing codebases.
 
@@ -70,6 +70,25 @@ The skills detect the actual project and prefer its native conventions.
 
 - `fullstack-qa`
 
+### Product direction
+
+- `halalfrfr-master`
+- `fullstack-architecture`
+- `project-intake-and-docs`
+- `refactor-existing-codebase`
+
+### Platform skills
+
+- `api-contracts`
+- `auth-authorization-tenancy`
+- `backend-laravel`
+- `backend-nestjs`
+- `postgres-data-modeling`
+- `dependency-freshness`
+- `observability-operations`
+- `application-security`
+- `testing-release-quality`
+
 ### Frontend core
 
 - `frontend-master`
@@ -98,10 +117,13 @@ The skills detect the actual project and prefer its native conventions.
 - `redesign-existing-projects`
 - `advanced-motion`
 - `web-3d`
+- `saas-dashboard-ux`
+- `product-copy-quality`
 
 ### Visual QA
 
 - `visual-qa`
+- `ai-slop-guard`
 
 ## Installation
 
@@ -114,7 +136,7 @@ Recommended global installation:
 
     pwsh ./scripts/setup.ps1
 
-The default installs all 28 skills into:
+The default installs all 44 skills into:
 
 `~/.agents/skills`
 

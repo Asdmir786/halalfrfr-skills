@@ -93,8 +93,8 @@ $extraSkills |
         Add-ValidationError "Unexpected skill directory: $_"
     }
 
-if ($expectedSkills.Count -ne 28) {
-    Add-ValidationError "Expected canonical inventory to contain 28 skills."
+if ($expectedSkills.Count -ne $config.canonicalSkillCount) {
+    Add-ValidationError "Expected canonical inventory to contain $($config.canonicalSkillCount) skills."
 }
 
 $skillRows = @()
@@ -147,8 +147,8 @@ foreach ($skillName in $expectedSkills) {
 
     $totalDescriptionCharacters += $descriptionLength
 
-    if ($descriptionLength -gt 240) {
-        Add-ValidationError "Description exceeds 240 chars: $skillName"
+    if ($descriptionLength -gt 360) {
+        Add-ValidationError "Description exceeds 360 chars: $skillName"
     }
 
     if ($content -match '(?mi)^disable-model-invocation:\s*true\s*$') {
@@ -187,8 +187,8 @@ foreach ($skillName in $expectedSkills) {
     }
 }
 
-if ($totalDescriptionCharacters -gt 5000) {
-    Add-ValidationError "Total description budget exceeds 5000 characters: $totalDescriptionCharacters"
+if ($totalDescriptionCharacters -gt 12000) {
+    Add-ValidationError "Total description budget exceeds 12000 characters: $totalDescriptionCharacters"
 }
 
 $gitkeeps = @(

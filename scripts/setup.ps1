@@ -8,7 +8,7 @@ if (-not (Test-Path $installer)) {
 
 Write-Host ""
 Write-Host "HalalFrFr Skills"
-Write-Host "Installing the unified 28-skill package globally..."
+Write-Host "Installing the unified 44-skill package globally..."
 Write-Host ""
 
 & $installer `

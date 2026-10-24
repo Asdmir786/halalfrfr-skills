@@ -26,7 +26,7 @@ Let a coding agent build new full-stack web applications or materially improve e
 - `data-architecture`
 - `framework-integration`
 - `fullstack-qa`
-- existing `frontend-master` → existing 18 frontend skills
+- existing `frontend-master` → existing 21 frontend skills
 
 ## Lanes
 

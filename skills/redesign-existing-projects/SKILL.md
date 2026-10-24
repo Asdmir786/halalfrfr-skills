@@ -5,6 +5,11 @@ description: Redesign or modernize an existing frontend while preserving working
 
 # Redesign Existing Projects
 
+## Native Planning
+
+For greenfield, broad, risky, cross-layer, or materially ambiguous work, use the host application's native Plan Mode before editing. Let the native planner inspect evidence, ask only material clarifications, and produce a reviewable plan. Do not replace it with a separate scripted questionnaire. For a focused, reversible task with sufficient context, proceed directly after inspection.
+
+
 Improve what exists without treating the current product as disposable.
 
 This skill owns:
@@ -379,4 +384,3 @@ Check:
 references/redesign-audit.md
 references/change-strategy.md
 references/preservation-contract.md
-

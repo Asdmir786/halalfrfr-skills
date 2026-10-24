@@ -1,0 +1,6 @@
+interface:
+  display_name: "HalalFrFr Software Director"
+  short_description: "Lead SaaS/app planning, design, architecture, implementation, and review."
+  default_prompt: "Lead this software task from my natural-language request. Use native Plan Mode when appropriate, maintain the project documents, and verify the result."
+policy:
+  allow_implicit_invocation: true

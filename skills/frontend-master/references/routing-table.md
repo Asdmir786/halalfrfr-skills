@@ -22,6 +22,9 @@ Use the smallest relevant set.
 | Advanced GSAP/scroll motion | advanced-motion | frontend-performance |
 | Three.js/R3F/WebGL | web-3d | frontend-performance |
 | Browser visual verification | visual-qa | task specialist |
+| Operational SaaS/dashboard UX | saas-dashboard-ux | frontend-master, design-system-web |
+| Generic AI-looking UI | ai-slop-guard | visual-qa, interface-polish |
+| Product microcopy and errors | product-copy-quality | saas-dashboard-ux |
 
 ## Routing Principle
 

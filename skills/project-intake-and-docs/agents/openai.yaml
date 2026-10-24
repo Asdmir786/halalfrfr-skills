@@ -1,0 +1,6 @@
+interface:
+  display_name: "Project Intake and Memory"
+  short_description: "Create and maintain the eight project documents and repository agent instructions."
+  default_prompt: "Inspect this project, use native Plan Mode for material discovery, and create or update its project memory without making me write technical documents."
+policy:
+  allow_implicit_invocation: true

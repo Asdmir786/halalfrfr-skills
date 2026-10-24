@@ -646,3 +646,14 @@ references/workflow-recipes.md
 references/conflict-resolution.md
 references/generated-skill-registry.md
 
+
+## HalalFrFr v4 Product UI Companions
+
+For operational software, the top-level `halalfrfr-master` may combine this router with:
+
+- `saas-dashboard-ux` for role, workflow, table, chart, density, and screen-state decisions;
+- `ai-slop-guard` for generic AI visual/UX patterns and Impeccable-assisted critique;
+- `product-copy-quality` for labels, errors, empty states, notifications, and non-generic product language;
+- `project-intake-and-docs` when the product or design context does not yet exist.
+
+Do not invoke these automatically for every frontend task. A one-line styling repair normally needs only the relevant existing specialist.

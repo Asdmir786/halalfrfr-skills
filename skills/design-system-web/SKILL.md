@@ -48,6 +48,56 @@ expressive composition
 
 Do not turn the design system into a visual cage.
 
+
+## Foundation Decision: Existing System or New System
+
+Choose deliberately instead of defaulting to either reinvention or preservation.
+
+### Coherent existing system
+
+Extract and preserve it. Extend its tokens, components, density, and conventions before adding alternatives.
+
+### Existing but inconsistent system
+
+Do not perform a big-bang visual rewrite by default. Inventory repeated values, define semantic tokens, normalize high-use primitives, and migrate feature by feature while preserving behavior.
+
+### New SaaS or dashboard with no design system
+
+Use a mature accessible component foundation such as the project's selected shadcn base for primitive behavior, then create a product-specific system around it:
+
+- visual thesis and anti-references
+- semantic color tokens
+- typography and numeric styles
+- spacing and density
+- application shell
+- tables, forms, filters, dialogs, navigation, charts, and status patterns
+- responsive transformations
+- motion language
+- product-specific components
+
+Do not redesign accessible primitives such as dialogs, menus, selects, and focus management from scratch without a real product reason.
+
+### HTML, screenshot, prototype, or visual reference
+
+Treat the source as evidence. Extract its useful visual grammar and intended interaction, then rebuild it using maintainable project components and current accessibility practices. Do not preserve accidental prototype structure as architecture.
+
+### No reference at all
+
+For substantial greenfield visual direction, use the host's native Plan Mode to inspect references and resolve only material visual choices. Otherwise propose one recommended product direction and, when useful, one contrasting alternative in a temporary design-lab route. Lock the selected direction before multiplying screens.
+
+## Living Source of Truth
+
+`DESIGN.md` records visual intent and approved direction. `docs/UI_SYSTEM.md` records reusable tokens, component policy, layout, density, states, responsive behavior, and accessibility implementation. Exact values and behavior live in code:
+
+- CSS variables and theme tokens
+- Tailwind theme definitions
+- component variants
+- `components.json`
+- approved shared components and patterns
+- visual regression baselines or design-lab examples
+
+When prose and implemented tokens disagree, resolve the inconsistency rather than letting two design systems coexist.
+
 ## Existing Project First
 
 Before creating tokens or components, inspect the project.

@@ -1,6 +1,6 @@
 # Installation
 
-HalalFrFr Skills contains the complete 28-skill frontend + full-stack system.
+HalalFrFr Skills contains the complete 44-skill frontend + full-stack system.
 
 ## Recommended global setup
 

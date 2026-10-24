@@ -82,6 +82,20 @@ The exact schema can evolve.
 
 Inspect the actual file rather than relying on memory.
 
+
+## Safe CLI Workflow
+
+Before adding or updating source-owned components:
+
+1. run the current project-aware `info` command;
+2. inspect existing components and aliases;
+3. use `--dry-run`, `--diff`, or `--view` before overwriting local files;
+4. add only components required by the current feature;
+5. adapt them to the project design tokens and component contracts;
+6. run accessibility, interaction, and visual checks.
+
+In monorepos, run shadcn commands against the actual workspace containing `components.json` rather than assuming the repository root. If project-context discovery fails at the root, use the CLI's workspace/cwd option and inspect the reported targets.
+
 ## Project-Owned Code
 
 Once a component is added into the project, treat the local code as part of the project.
