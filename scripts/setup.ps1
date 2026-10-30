@@ -8,7 +8,8 @@ if (-not (Test-Path $installer)) {
 
 Write-Host ""
 Write-Host "HalalFrFr Skills"
-Write-Host "Installing the unified 44-skill package globally..."
+$config = Get-Content (Join-Path $PSScriptRoot "../config/skill-set.json") -Raw | ConvertFrom-Json
+Write-Host "Installing the unified $($config.canonicalSkillCount)-skill package globally..."
 Write-Host ""
 
 & $installer `

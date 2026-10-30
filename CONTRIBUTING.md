@@ -20,6 +20,8 @@ Keep individual descriptions under 240 characters when practical.
 
 The repository validator also limits the combined description budget to preserve discovery headroom.
 
+Official GSAP files are kept unmodified. Their descriptions are checked against their pinned source fingerprints rather than shortened to the local description limit. Update `config/upstream-gsap.json` and retain the upstream license when refreshing them.
+
 ## Generated Files
 
 Do not manually maintain:

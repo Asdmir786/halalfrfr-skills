@@ -4,10 +4,11 @@
 
 HalalFrFr Skills is a modular Agent Skills system for building and improving production web applications with AI coding agents.
 
-The unified package contains **44 skills**:
+The unified package contains **52 skills**:
 
 - 21 frontend design and engineering skills
 - 23 full-stack product, architecture, backend, data, contract, and QA skills
+- 8 unmodified official GSAP skills, with upstream provenance and license
 
 The system supports both new applications and existing codebases.
 
@@ -125,6 +126,21 @@ The skills detect the actual project and prefer its native conventions.
 - `visual-qa`
 - `ai-slop-guard`
 
+### Official GSAP companions
+
+- `gsap-core`
+- `gsap-timeline`
+- `gsap-scrolltrigger`
+- `gsap-plugins`
+- `gsap-utils`
+- `gsap-react`
+- `gsap-performance`
+- `gsap-frameworks`
+
+These complement `advanced-motion`: use HalalFrFr for choreography and medium selection, then load the relevant GSAP skill for API details. For complete video composition, preview, audio, captions, and export, use separately installed Remotion skills when available. GSAP skills do not provide a video renderer.
+
+Source: [GreenSock's official GSAP skills](https://github.com/greensock/gsap-skills). The pinned revision and content hashes are recorded in `config/upstream-gsap.json`; see `third-party/gsap-skills/NOTICE.md`.
+
 ## Installation
 
 Clone:
@@ -136,7 +152,7 @@ Recommended global installation:
 
     pwsh ./scripts/setup.ps1
 
-The default installs all 44 skills into:
+The default installs all 52 skills into:
 
 `~/.agents/skills`
 
@@ -188,4 +204,4 @@ Run the complete repository checks:
 
 ## License
 
-MIT. See `LICENSE` and `NOTICE.md`.
+MIT. See `LICENSE` and `NOTICE.md`. The official GSAP skills retain GreenSock's MIT license in `third-party/gsap-skills/LICENSE`.

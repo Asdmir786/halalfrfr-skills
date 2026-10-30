@@ -5,6 +5,12 @@ description: Advanced motion and GSAP choreography for timelines, scroll-linked 
 
 # Advanced Motion
 
+## Official GSAP API companions
+
+This skill owns choreography and medium selection. Once GSAP is selected, load only the relevant installed companion: `gsap-core`, `gsap-timeline`, `gsap-scrolltrigger`, `gsap-plugins`, `gsap-utils`, `gsap-react`, `gsap-frameworks`, or `gsap-performance`.
+
+For complete video projects, use the separately installed Remotion skills when available for composition, previews, audio, captions, and export. Choose motion tools around the video's rendering requirements; installing GSAP skills does not itself provide video export.
+
 Create motion that strengthens hierarchy, continuity, storytelling, and product character.
 
 This skill owns:

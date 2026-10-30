@@ -37,3 +37,7 @@
 "FS018","Implement this backend feature in Next.js and decide route handler versus server action correctly.","framework-integration"
 "FS019","Fix this one broken button and verify it, nothing else.","fullstack-master"
 "FS020","Create a concise rebuild dossier before we delete the old frontend.","product-specification"
+"GSAP-01","Explain GSAP fromTo and immediateRender for these tweens.","gsap-core"
+"GSAP-02","Sequence these GSAP animations with timeline labels and overlaps.","gsap-timeline"
+"GSAP-03","Fix cleanup of this GSAP useGSAP hook in React.","gsap-react"
+"GSAP-04","Configure ScrollTrigger pinning and scrub in this GSAP scene.","gsap-scrolltrigger"

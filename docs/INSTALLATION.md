@@ -1,6 +1,6 @@
 # Installation
 
-HalalFrFr Skills contains the complete 44-skill frontend + full-stack system.
+HalalFrFr Skills contains 44 frontend + full-stack skills and 8 official GSAP companion skills, for 52 skills in total.
 
 ## Recommended global setup
 
@@ -43,6 +43,8 @@ Unrelated skill directories are not removed.
 If an unmanaged skill has the same name as a HalalFrFr skill, installation stops rather than silently overwriting it.
 
 Use `-Force` only after intentionally reviewing or backing up those conflicts.
+
+The GSAP skills are included in the same installation. If they were previously installed separately, their names can appear as unmanaged collisions. Back up the existing copies and compare them with the pinned source before using `-Force`; the installer does not automatically adopt or overwrite them.
 
 ## Updates
 

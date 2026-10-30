@@ -61,6 +61,52 @@ $expectedSkills = @(
     }
 )
 
+# Keep bundled official instructions intact, including upstream descriptions.
+$upstreamLockPath = Join-Path $repoRoot "config/upstream-gsap.json"
+$upstreamSkillNames = @()
+
+if (Test-Path $upstreamLockPath) {
+    $upstreamLock = Get-Content $upstreamLockPath -Raw | ConvertFrom-Json
+    $upstreamSkillNames = @(
+        $config.skills |
+        Where-Object { $_.category -eq "official-gsap" } |
+        ForEach-Object { $_.name } |
+        Sort-Object
+    )
+    $lockedSkillPaths = @(
+        $upstreamLock.files |
+        Where-Object { $_.path -like "skills/*/SKILL.md" } |
+        ForEach-Object { $_.path } |
+        Sort-Object
+    )
+    $expectedUpstreamPaths = @(
+        $upstreamSkillNames | ForEach-Object { "skills/$_/SKILL.md" }
+    )
+
+    if (($lockedSkillPaths -join "`n") -ne ($expectedUpstreamPaths -join "`n")) {
+        Add-ValidationError "GSAP provenance does not match the configured official skill inventory."
+    }
+
+    foreach ($file in $upstreamLock.files) {
+        $filePath = Join-Path $repoRoot $file.path
+        if (-not (Test-Path -LiteralPath $filePath -PathType Leaf)) {
+            Add-ValidationError "Missing upstream file: $($file.path)"
+            continue
+        }
+        $fingerprint = Get-NormalizedTextFingerprint -Path $filePath
+        if ($fingerprint.SHA256 -ne $file.sha256) {
+            Add-ValidationError "Upstream content differs from pinned source: $($file.path)"
+        }
+    }
+
+    if ("third-party/gsap-skills/LICENSE" -notin @($upstreamLock.files.path)) {
+        Add-ValidationError "GSAP upstream license is not covered by provenance."
+    }
+}
+else {
+    Add-ValidationError "Missing config/upstream-gsap.json"
+}
+
 $actualSkills = @(
     Get-ChildItem `
         (Join-Path $repoRoot "skills") `
@@ -147,8 +193,9 @@ foreach ($skillName in $expectedSkills) {
 
     $totalDescriptionCharacters += $descriptionLength
 
-    if ($descriptionLength -gt 360) {
-        Add-ValidationError "Description exceeds 360 chars: $skillName"
+    $descriptionLimit = if ($skillName -in $upstreamSkillNames) { 600 } else { 360 }
+    if ($descriptionLength -gt $descriptionLimit) {
+        Add-ValidationError "Description exceeds $descriptionLimit chars: $skillName"
     }
 
     if ($content -match '(?mi)^disable-model-invocation:\s*true\s*$') {
@@ -211,6 +258,9 @@ $requiredFiles = @(
     "NOTICE.md",
     "CONTRIBUTING.md",
     "config/skill-set.json",
+    "config/upstream-gsap.json",
+    "third-party/gsap-skills/LICENSE",
+    "third-party/gsap-skills/NOTICE.md",
     ".github/workflows/validate.yml",
     "scripts/check.ps1",
     "scripts/install.ps1",

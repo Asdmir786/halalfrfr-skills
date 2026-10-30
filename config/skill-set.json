@@ -219,11 +219,51 @@
       "category": "qa",
       "name": "ai-slop-guard",
       "layer": "frontend"
+    },
+    {
+      "category": "official-gsap",
+      "name": "gsap-core",
+      "layer": "frontend"
+    },
+    {
+      "category": "official-gsap",
+      "name": "gsap-timeline",
+      "layer": "frontend"
+    },
+    {
+      "category": "official-gsap",
+      "name": "gsap-scrolltrigger",
+      "layer": "frontend"
+    },
+    {
+      "category": "official-gsap",
+      "name": "gsap-plugins",
+      "layer": "frontend"
+    },
+    {
+      "category": "official-gsap",
+      "name": "gsap-utils",
+      "layer": "frontend"
+    },
+    {
+      "category": "official-gsap",
+      "name": "gsap-react",
+      "layer": "frontend"
+    },
+    {
+      "category": "official-gsap",
+      "name": "gsap-performance",
+      "layer": "frontend"
+    },
+    {
+      "category": "official-gsap",
+      "name": "gsap-frameworks",
+      "layer": "frontend"
     }
   ],
-  "frontendSkillCount": 21,
+  "frontendSkillCount": 29,
   "version": 1,
   "package": "halalfrfr-skills",
-  "canonicalSkillCount": 44,
+  "canonicalSkillCount": 52,
   "fullstackSkillCount": 23
 }

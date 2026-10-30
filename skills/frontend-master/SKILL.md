@@ -303,6 +303,8 @@ Examples:
 
 Do not invoke for ordinary hover and press effects.
 
+When GSAP is chosen, use the relevant official `gsap-*` companion for API guidance. `advanced-motion` remains responsible for choreography and medium selection; the companions do not require GSAP for every animation task.
+
 ### web-3d
 
 Use when real-time 3D or WebGL materially contributes to the experience.

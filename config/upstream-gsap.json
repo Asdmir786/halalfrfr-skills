@@ -1,0 +1,92 @@
+{
+  "repository": "https://github.com/greensock/gsap-skills",
+  "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+  "license": "MIT",
+  "files": [
+    {
+      "path": "skills/gsap-core/SKILL.md",
+      "upstreamPath": "skills/gsap-core/SKILL.md",
+      "sha256": "3887B47E050AB5AFBE2A9A820F23D39FA02AB785E06A343BE44C6F91D84D12B3"
+    },
+    {
+      "path": "skills/gsap-timeline/SKILL.md",
+      "upstreamPath": "skills/gsap-timeline/SKILL.md",
+      "sha256": "1A8B0F39CC4BE3ED3D834B89672E4AE2F151B901DC3450BEBF10BBC45379FE02"
+    },
+    {
+      "path": "skills/gsap-scrolltrigger/SKILL.md",
+      "upstreamPath": "skills/gsap-scrolltrigger/SKILL.md",
+      "sha256": "9351B6666A4749C0740406EA363AACCB99A087FF45CC5E8B99A0F367FACF3EF4"
+    },
+    {
+      "path": "skills/gsap-plugins/SKILL.md",
+      "upstreamPath": "skills/gsap-plugins/SKILL.md",
+      "sha256": "5838B856C74C07FBC9FA99B6DFD1EEE34EA554C3E530C30E0D58014B707D70A4"
+    },
+    {
+      "path": "skills/gsap-utils/SKILL.md",
+      "upstreamPath": "skills/gsap-utils/SKILL.md",
+      "sha256": "1927BCC4EA95B38203404AD5EA1D060B15C4A886C65AE53E885FF1793AABE0BA"
+    },
+    {
+      "path": "skills/gsap-react/SKILL.md",
+      "upstreamPath": "skills/gsap-react/SKILL.md",
+      "sha256": "88E2A5312B45E8CC7B3C496637FF5BC9AF2AE9C925B555C8B235B34CBC989D74"
+    },
+    {
+      "path": "skills/gsap-performance/SKILL.md",
+      "upstreamPath": "skills/gsap-performance/SKILL.md",
+      "sha256": "CB5408D6FBA707AABCBFE3320317A14C1F8FCA6070074E5261047930F50D441E"
+    },
+    {
+      "path": "skills/gsap-frameworks/SKILL.md",
+      "upstreamPath": "skills/gsap-frameworks/SKILL.md",
+      "sha256": "842D9D3659EC3DDC8ABBDC524708F8FACF81F468AC25D0577F48C759C4FA31E6"
+    },
+    {
+      "path": "third-party/gsap-skills/LICENSE",
+      "upstreamPath": "LICENSE",
+      "sha256": "51B04B06556662DD817E8F4AA6D06BC7139DC73739E1319A7233CFDE3E147B90"
+    },
+    {
+      "path": "skills/gsap-core/LICENSE",
+      "upstreamPath": "LICENSE",
+      "sha256": "51B04B06556662DD817E8F4AA6D06BC7139DC73739E1319A7233CFDE3E147B90"
+    },
+    {
+      "path": "skills/gsap-timeline/LICENSE",
+      "upstreamPath": "LICENSE",
+      "sha256": "51B04B06556662DD817E8F4AA6D06BC7139DC73739E1319A7233CFDE3E147B90"
+    },
+    {
+      "path": "skills/gsap-scrolltrigger/LICENSE",
+      "upstreamPath": "LICENSE",
+      "sha256": "51B04B06556662DD817E8F4AA6D06BC7139DC73739E1319A7233CFDE3E147B90"
+    },
+    {
+      "path": "skills/gsap-plugins/LICENSE",
+      "upstreamPath": "LICENSE",
+      "sha256": "51B04B06556662DD817E8F4AA6D06BC7139DC73739E1319A7233CFDE3E147B90"
+    },
+    {
+      "path": "skills/gsap-utils/LICENSE",
+      "upstreamPath": "LICENSE",
+      "sha256": "51B04B06556662DD817E8F4AA6D06BC7139DC73739E1319A7233CFDE3E147B90"
+    },
+    {
+      "path": "skills/gsap-react/LICENSE",
+      "upstreamPath": "LICENSE",
+      "sha256": "51B04B06556662DD817E8F4AA6D06BC7139DC73739E1319A7233CFDE3E147B90"
+    },
+    {
+      "path": "skills/gsap-performance/LICENSE",
+      "upstreamPath": "LICENSE",
+      "sha256": "51B04B06556662DD817E8F4AA6D06BC7139DC73739E1319A7233CFDE3E147B90"
+    },
+    {
+      "path": "skills/gsap-frameworks/LICENSE",
+      "upstreamPath": "LICENSE",
+      "sha256": "51B04B06556662DD817E8F4AA6D06BC7139DC73739E1319A7233CFDE3E147B90"
+    }
+  ]
+}
